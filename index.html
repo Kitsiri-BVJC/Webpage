@@ -456,7 +456,7 @@ async function init(){
   if(st.line_oa) LINE_OA_ID = st.line_oa;
   if(st.tel) TEL = st.tel;
   if(st.tel_show) TEL_SHOW = st.tel_show;
-  $("lineTxt").textContent = LINE_OA_ID;
+  $("lineTxt").textContent = lineLabel();
   const telA = $("telA"); telA.textContent = TEL_SHOW; telA.href = "tel:"+TEL;
 
   const rows = pRes.data || [];
@@ -551,8 +551,8 @@ function openM(idx, cardEl){
   $("mCat").textContent = CATS[p[2]];
   $("mBrand").textContent = BRANDS[p[3]];
   $("mUnit").textContent = UNITS[p[4]]||"-";
-  const msg = encodeURIComponent(`สนใจสินค้า [${p[0]}] ${p[1]} ขอราคาตัวแทนครับ/ค่ะ`);
-  $("mLine").onclick = ()=>window.open(`https://line.me/R/oaMessage/${LINE_OA_ID}/?${msg}`,"_blank");
+  const msg = `สนใจสินค้า [${p[0]}] ${p[1]} ขอราคาตัวแทนครับ/ค่ะ`;
+  $("mLine").onclick = ()=>window.open(lineUrl(msg),"_blank");
   $("mTel").href = "tel:"+TEL;
 
   const ov=$("overlay"), md=$("modal");
@@ -661,6 +661,16 @@ function goBrand(i){
 }
 function clearBrand(){ state.brand=-1; $("brandSel").value=-1; render(); }
 
+/* ── ลิงก์ LINE (รองรับ @OA-ID / ลิงก์เต็ม / ไอดีส่วนตัว) ── */
+function lineUrl(message){
+  const v = String(LINE_OA_ID||"").trim();
+  if(/^https?:\/\//i.test(v)) return v;                                        /* วางลิงก์เต็ม เช่น https://lin.ee/xxxx */
+  if(v.startsWith("@")) return `https://line.me/R/oaMessage/${v}/?${encodeURIComponent(message)}`;  /* LINE OA */
+  if(v) return `https://line.me/ti/p/~${encodeURIComponent(v)}`;                /* ไอดี LINE ส่วนตัว */
+  return "https://line.me";
+}
+function lineLabel(){ return /^https?:\/\//i.test(String(LINE_OA_ID||"")) ? "กดเพื่อแอดเพื่อน" : LINE_OA_ID; }
+
 /* ── แบนเนอร์โปรโมชั่น ── */
 let BANNERS = [], bnTimer = null;
 function buildBanners(){
@@ -743,10 +753,9 @@ function buildVideos(){
 }
 
 function lineDealer(){
-  const msg = encodeURIComponent("สนใจสมัครเป็นตัวแทนจำหน่าย ขอรายละเอียดและราคาส่งครับ/ค่ะ");
-  window.open(`https://line.me/R/oaMessage/${LINE_OA_ID}/?${msg}`,"_blank");
+  window.open(lineUrl("สนใจสมัครเป็นตัวแทนจำหน่าย ขอรายละเอียดและราคาส่งครับ/ค่ะ"),"_blank");
 }
-$("lineTxt").textContent = LINE_OA_ID;
+$("lineTxt").textContent = lineLabel();
 const telA=$("telA"); telA.textContent=TEL_SHOW; telA.href="tel:"+TEL;
 
 init();
