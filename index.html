@@ -110,6 +110,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .empty{padding:70px 20px;text-align:center;color:var(--ink2)}
 .empty b{display:block;font-size:17px;color:var(--ink);margin-bottom:6px}
 
+/* ═══ brands ═══ */
+.brands{background:#fff;padding:74px 0 70px}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:13px}
+@media(max-width:560px){.bgrid{grid-template-columns:repeat(3,1fr);gap:9px}}
+.btile{background:var(--bg2);border-radius:16px;padding:20px 10px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.btile:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(0,0,0,.08);background:#fff}
+.blogo{width:60px;height:60px;border-radius:14px;background:#fff;display:grid;place-items:center;font-weight:700;font-size:20px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.blogo img{width:100%;height:100%;object-fit:contain;padding:6px}
+.bn{font-size:13px;font-weight:600;line-height:1.3;min-height:2.6em;display:flex;align-items:center}
+.bc{font-size:11.5px;color:var(--ink2)}
+.clr{color:var(--red);font-weight:600;font-size:13px;padding:2px 8px;border-radius:99px;background:#fdecec}
+.clr:hover{background:#f8dcdd}
+
 /* ═══ dealer band ═══ */
 .dealer{background:#000;color:#f5f5f7;text-align:center;padding:88px 22px}
 .dealer h2{font-size:clamp(32px,5.6vw,58px);font-weight:700;letter-spacing:-.02em;line-height:1.12;margin-bottom:16px}
@@ -181,6 +194,7 @@ footer a{color:var(--red)}
     <a class="brand" href="#top">BVJC<span>.</span></a>
     <span class="sp"></span>
     <a class="lnk" href="#catalog">แคตตาล็อก</a>
+    <a class="lnk" href="#brands">แบรนด์</a>
     <a class="lnk" href="#dealer">สมัครตัวแทน</a>
     <a class="lnk" href="#contact">ติดต่อ</a>
     <button class="pill pill-red pill-sm" onclick="lineDealer()">คุยทาง LINE</button>
@@ -220,6 +234,15 @@ footer a{color:var(--red)}
     <div class="more-wrap"><button class="pill pill-gray" id="moreBtn" onclick="showMore()" style="display:none">แสดงเพิ่ม</button></div>
   </div>
 </main>
+
+<section class="brands" id="brands">
+  <div class="wrap">
+    <h2 class="sec-title rv">แบรนด์ที่เราจัดจำหน่าย</h2>
+    <p class="sec-sub rv">แตะที่แบรนด์ เพื่อดูสินค้าทั้งหมดของแบรนด์นั้น</p>
+    <div class="bgrid" id="bgrid"></div>
+    <div class="more-wrap"><button class="pill pill-gray" id="bMoreBtn" onclick="toggleBrands()" style="display:none">แสดงแบรนด์ทั้งหมด</button></div>
+  </div>
+</section>
 
 <section class="dealer" id="dealer">
   <h2 class="rv">มาเป็น<span class="grad">ตัวแทนจำหน่าย</span><br>ของเรา</h2>
@@ -285,9 +308,10 @@ const emoOf = c => EMO[c] || "📦";
 async function init(){
   const ls = $("loadState");
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const [stRes, pRes] = await Promise.all([
+  const [stRes, pRes, bRes] = await Promise.all([
     sb.from("site_settings").select("*"),
-    sb.from("products").select("code,name,category,brand,unit,image_url").eq("is_active", true).range(0, 4999)
+    sb.from("products").select("code,name,category,brand,unit,image_url").eq("is_active", true).range(0, 4999),
+    sb.from("brands").select("name,logo_url")
   ]);
   if(pRes.error){ ls.innerHTML = "<b>โหลดข้อมูลไม่สำเร็จ</b>" + esc(pRes.error.message); return; }
 
@@ -313,6 +337,7 @@ async function init(){
   P.sort((a,b)=> a[2]-b[2] || a[1].localeCompare(b[1],"th"));
   catCount = CATS.map((_,i)=>P.filter(p=>p[2]===i).length);
   brandCount = BRANDS.map((_,i)=>P.filter(p=>p[3]===i).length);
+  brandLogo = Object.fromEntries((bRes.data||[]).map(r=>[r.name, r.logo_url||""]));
 
   $("heroStats").textContent = `${P.length.toLocaleString()} รายการ · ${CATS.length} หมวดหมู่ · ${BRANDS.filter(b=>!b.includes("ไม่ระบุ")).length}+ แบรนด์`;
 
@@ -320,7 +345,7 @@ async function init(){
   BRANDS.forEach((b,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=`${b} (${brandCount[i]})`; bs.appendChild(o); });
 
   ls.style.display = "none";
-  buildCats(); render();
+  buildCats(); buildBrands(); render();
 }
 
 /* ── หมวดหมู่แบบไทล์ ── */
@@ -362,7 +387,9 @@ function render(){
   const show = f.slice(0, state.shown);
   $("grid").innerHTML = show.map(([p,idx],i)=>card(p,idx,i)).join("");
   $("empty").style.display = (P.length && !f.length) ? "block" : "none";
-  $("resultLine").textContent = P.length ? `พบ ${f.length.toLocaleString()} รายการ · แสดง ${show.length.toLocaleString()}` : "";
+  let rl = P.length ? `พบ ${f.length.toLocaleString()} รายการ · แสดง ${show.length.toLocaleString()}` : "";
+  if(state.brand>-1) rl += ` &nbsp;<button class="clr" onclick="clearBrand()">✕ ${esc(BRANDS[state.brand])}</button>`;
+  $("resultLine").innerHTML = rl;
   const mb=$("moreBtn");
   mb.style.display = f.length>state.shown ? "" : "none";
   mb.textContent = `แสดงเพิ่ม (เหลืออีก ${(f.length-state.shown).toLocaleString()} รายการ)`;
@@ -447,6 +474,45 @@ const io = new IntersectionObserver(es=>{
   es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
 },{ threshold:.12 });
 document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+/* ── แบรนด์ ── */
+let brandLogo = {}, brandsExpanded = false;
+const BSHOW = 18;
+const MONO_PAL = [["#FDECEC","#C62127"],["#E8F0FE","#2456B3"],["#E7F6EC","#1E7A46"],["#FFF3DF","#B26A09"],["#F3ECFD","#7A3DB8"],["#E6F7F9","#0E7490"],["#FDEFE7","#C2410C"],["#EFEFF4","#4B4B52"]];
+function monoOf(name){
+  let h=0; for(const ch of name) h=(h*31+ch.codePointAt(0))>>>0;
+  const [bg,fg]=MONO_PAL[h%MONO_PAL.length];
+  const init=[...String(name).replace(/[()\s.]/g,"")].slice(0,2).join("").toUpperCase();
+  return {bg,fg,init};
+}
+function logoHtml(b,i){
+  const lg = brandLogo[b];
+  if(lg) return `<span class="blogo"><img loading="lazy" src="${esc(lg)}" alt="" onerror="brokeLogo(this,${i})"></span>`;
+  const m = monoOf(b);
+  return `<span class="blogo" style="background:${m.bg};color:${m.fg}">${esc(m.init)}</span>`;
+}
+function brokeLogo(img,i){
+  const m = monoOf(BRANDS[i]||"?");
+  const sp = img.closest(".blogo");
+  sp.style.background=m.bg; sp.style.color=m.fg; sp.textContent=m.init;
+}
+function buildBrands(){
+  const list = BRANDS.map((b,i)=>({b,i})).filter(x=>!x.b.includes("ไม่ระบุ"));
+  const shown = brandsExpanded ? list : list.slice(0,BSHOW);
+  $("bgrid").innerHTML = shown.map(({b,i})=>
+    `<button class="btile" onclick="goBrand(${i})" aria-label="ดูสินค้าแบรนด์ ${esc(b)}">${logoHtml(b,i)}<span class="bn">${esc(b)}</span><span class="bc">${brandCount[i]} รายการ</span></button>`
+  ).join("");
+  const btn = $("bMoreBtn");
+  btn.style.display = list.length>BSHOW ? "" : "none";
+  btn.textContent = brandsExpanded ? "แสดงน้อยลง" : `แสดงแบรนด์ทั้งหมด (${list.length})`;
+}
+function toggleBrands(){ brandsExpanded=!brandsExpanded; buildBrands(); }
+function goBrand(i){
+  state.brand=i; state.shown=BATCH;
+  $("brandSel").value=i; render();
+  $("catalog").scrollIntoView({behavior: reduceMotion?"auto":"smooth"});
+}
+function clearBrand(){ state.brand=-1; $("brandSel").value=-1; render(); }
 
 function lineDealer(){
   const msg = encodeURIComponent("สนใจสมัครเป็นตัวแทนจำหน่าย ขอรายละเอียดและราคาส่งครับ/ค่ะ");
