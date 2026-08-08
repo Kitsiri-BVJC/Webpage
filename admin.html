@@ -112,6 +112,23 @@ td .nm{font-weight:600;line-height:1.35}
 .toast.show{transform:translateX(-50%);opacity:1}
 .toast.err{background:var(--red)}
 .loading{padding:70px 20px;text-align:center;color:var(--ink2)}
+
+/* ═══ mobile hardening ═══ */
+input,select{font-size:16px}                 /* กัน iOS ซูมอัตโนมัติ */
+.login input,.toolbar input[type=search],.toolbar select,.f input{font-size:16px}
+#tableWrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.modal{max-height:94vh;max-height:94dvh;overscroll-behavior:contain}
+@media(max-width:840px){
+  td .code{white-space:normal;overflow-wrap:anywhere}
+  .toolbar select{flex:1;max-width:none}
+  .thumb{width:44px;height:40px}
+  .rowbtn{padding:8px 11px}
+}
+@media(max-width:480px){
+  .topbar .in{padding:8px 12px}
+  .btn{padding:9px 13px;font-size:13.5px}
+  .wrap{padding:14px 12px 60px}
+}
 </style>
 </head>
 <body>
