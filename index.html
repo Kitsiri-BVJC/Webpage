@@ -13,8 +13,8 @@
 <style>
 :root{
   --ink:#1d1d1f; --ink2:#6e6e73; --hair:#d2d2d7;
-  --bg:#ffffff; --bg2:#f5f5f7;
-  --red:#B8434F; --red-hover:#9d3743; --blue:#3759AD;
+  --bg:#ffffff; --bg2:#F2F5EE;
+  --red:#B8434F; --red-hover:#9d3743; --blue:#3759AD; --green:#5E9A52; --green-d:#3F6E37;
   --r-card:18px; --r-modal:22px;
   --ease:cubic-bezier(.28,.11,.32,1);
 }
@@ -128,9 +128,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .clr:hover{background:#f8dcdd}
 
 /* ═══ dealer band ═══ */
-.dealer{background:#000;color:#f5f5f7;text-align:center;padding:88px 22px}
+.dealer{background:#0F1D13;color:#f5f5f7;text-align:center;padding:84px 22px 150px}
 .dealer h2{font-size:clamp(32px,5.6vw,58px);font-weight:700;letter-spacing:-.02em;line-height:1.12;margin-bottom:16px}
-.dealer h2 .grad{background:linear-gradient(92deg,#5d7fd6,var(--blue) 32%,var(--red) 78%,#d05563);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dealer h2 .grad{background:linear-gradient(92deg,#8CCB74,#E8B54A 78%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .dealer .sub{color:#a1a1a6;font-size:clamp(16px,2.2vw,20px);max-width:52ch;margin:0 auto 46px}
 .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 26px;max-width:960px;margin:0 auto 50px;text-align:center}
 @media(max-width:860px){.feat{grid-template-columns:repeat(2,1fr)}}
@@ -211,6 +211,51 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
   .pill-red:hover{transform:none;background:var(--red)}
   .btile:hover{background:var(--bg2)}
 }
+
+/* ═══ banners ═══ */
+.banners-sec{padding:14px 0 0;display:none}
+.bnr-box{max-width:1040px;margin:0 auto;padding:0 22px}
+.bnr-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:18px;scrollbar-width:none}
+.bnr-track::-webkit-scrollbar{display:none}
+.bnr{flex:0 0 100%;scroll-snap-align:start;display:block}
+.bnr img{width:100%;display:block;aspect-ratio:3/1;object-fit:cover}
+@media(max-width:560px){.bnr img{aspect-ratio:2/1}}
+.bnr-dots{display:flex;gap:7px;justify-content:center;padding:10px 0 0}
+.bd{width:8px;height:8px;border-radius:50%;background:#d2d2d7;padding:0;transition:all .25s}
+.bd.on{background:var(--red);width:20px;border-radius:99px}
+
+/* ═══ ทุ่งนาใต้ hero ═══ */
+.field{display:block;width:100%;height:clamp(110px,15vw,185px)}
+.hero{padding-bottom:0}
+.hero .lineup{position:relative;z-index:2;margin-bottom:-40px}
+@media(max-width:680px){.hero .lineup{margin-bottom:-28px}}
+
+/* ═══ สินค้าแนะนำ ═══ */
+.featured{background:#fff;padding:50px 0 6px;display:none}
+.feat-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:6px 2px 16px;scrollbar-width:thin}
+.fcard{flex:0 0 235px;scroll-snap-align:start;border:1px solid #eee}
+.fbadge{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;z-index:2}
+
+/* ═══ วิดีโอ ═══ */
+.videos-sec{background:#fff;padding:56px 0 60px;display:none}
+.vid-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding:4px 2px 14px;align-items:flex-start;scrollbar-width:thin}
+.vwrap{flex:0 0 auto;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px}
+.vcard{border-radius:16px;overflow:hidden;background:#111;position:relative}
+.vcard.tt{width:250px;height:445px}
+.vcard.yt{width:min(418px,84vw);height:235px}
+.vcard iframe{width:100%;height:100%;border:0;display:block}
+.vt{font-size:13.5px;font-weight:600;color:var(--ink);max-width:250px}
+.vcard.yt+ .vt,.vwrap .vt{max-width:100%}
+
+/* ═══ ปุ่ม LINE ลอย ═══ */
+.line-fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:55;background:#06C755;color:#fff;border-radius:999px;padding:13px 19px 13px 15px;display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;box-shadow:0 10px 26px rgba(6,199,85,.38);transition:transform .25s var(--ease)}
+.line-fab:hover{transform:scale(1.05)}
+.line-fab svg{flex:0 0 auto}
+
+/* ═══ dealer โทนทุ่งนายามค่ำ ═══ */
+.dealer{position:relative;overflow:hidden}
+.dealer .dwrap{position:relative;z-index:2}
+.dfield{position:absolute;left:0;right:0;bottom:0;width:100%;height:clamp(60px,9vw,110px);z-index:1}
 </style>
 </head>
 <body>
@@ -233,6 +278,13 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
   </div>
 </nav>
 
+<section class="banners-sec" id="bannersSec">
+  <div class="bnr-box">
+    <div class="bnr-track" id="bnrTrack"></div>
+    <div class="bnr-dots" id="bnrDots"></div>
+  </div>
+</section>
+
 <header class="hero" id="top">
   <p class="eyebrow">บริษัท บี วี เจ ซี กรุ๊ป จำกัด</p>
   <h1>นำเข้าตรงจากโรงงาน<br>ถึงหน้าร้านคุณ</h1>
@@ -245,7 +297,28 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
   <div class="lineup" aria-hidden="true">
     <span class="lu">🌾</span><span class="lu">💧</span><span class="lu">🌿</span><span class="lu">🥩</span><span class="lu">⚡</span><span class="lu">🍦</span><span class="lu">✂️</span><span class="lu">🔥</span>
   </div>
+  <svg class="field" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+    <circle cx="1108" cy="70" r="52" fill="#F2C14E" opacity=".82"/>
+    <path d="M0 122 Q240 86 480 110 T960 102 T1440 94 V200 H0 Z" fill="#D7E6C8"/>
+    <path d="M0 148 Q260 114 520 136 T1040 130 T1440 124 V200 H0 Z" fill="#A3C78F"/>
+    <path d="M0 174 Q300 150 620 164 T1440 158 V200 H0 Z" fill="#5E9A52"/>
+    <g stroke="#3F6E37" stroke-width="4.5" stroke-linecap="round" fill="none" opacity=".9">
+      <path d="M150 168 q-5 -16 -2 -27 M150 168 q5 -14 12 -22 M150 168 q-12 -10 -19 -19"/>
+      <path d="M420 160 q-5 -16 -2 -27 M420 160 q5 -14 12 -22 M420 160 q-12 -10 -19 -19"/>
+      <path d="M700 166 q-5 -16 -2 -27 M700 166 q5 -14 12 -22 M700 166 q-12 -10 -19 -19"/>
+      <path d="M980 160 q-5 -16 -2 -27 M980 160 q5 -14 12 -22 M980 160 q-12 -10 -19 -19"/>
+      <path d="M1260 162 q-5 -16 -2 -27 M1260 162 q5 -14 12 -22 M1260 162 q-12 -10 -19 -19"/>
+    </g>
+  </svg>
 </header>
+
+<section class="featured" id="featSec">
+  <div class="wrap">
+    <h2 class="sec-title rv">สินค้าแนะนำ</h2>
+    <p class="sec-sub rv">ตัวขายดีที่ตัวแทนสั่งซ้ำมากที่สุด</p>
+    <div class="feat-row" id="featRow"></div>
+  </div>
+</section>
 
 <section class="brands" id="brands">
   <div class="wrap">
@@ -277,7 +350,16 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
 </main>
 
 
+<section class="videos-sec" id="videosSec">
+  <div class="wrap">
+    <h2 class="sec-title rv">วิดีโอสาธิตสินค้า</h2>
+    <p class="sec-sub rv">ดูของทำงานจริง ก่อนตัดสินใจ</p>
+    <div class="vid-row" id="vidRow"></div>
+  </div>
+</section>
+
 <section class="dealer" id="dealer">
+  <div class="dwrap">
   <h2 class="rv">มาเป็น<span class="grad">ตัวแทนจำหน่าย</span><br>ของเรา</h2>
   <p class="sub rv">รับสินค้าราคาตัวแทนจากผู้นำเข้าโดยตรง ไม่ผ่านคนกลาง เหมาะกับร้านเครื่องมือเกษตร ร้านอุปกรณ์ครัว และผู้เริ่มต้นธุรกิจ</p>
   <div class="feat">
@@ -288,6 +370,15 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
   </div>
   <button class="pill pill-red pill-lg rv" onclick="lineDealer()">สมัครตัวแทน / ขอราคาส่ง</button>
   <p class="note">เงื่อนไขการเป็นตัวแทนและราคาขายส่ง สอบถามได้ทาง LINE ทีมงานตอบไว</p>
+  </div>
+  <svg class="dfield" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 56 Q300 28 640 46 T1440 38 V90 H0 Z" fill="#182B1C"/>
+    <g stroke="#213A26" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M240 52 q-4 -13 -1 -22 M240 52 q4 -11 10 -18 M240 52 q-10 -8 -15 -15"/>
+      <path d="M760 50 q-4 -13 -1 -22 M760 50 q4 -11 10 -18 M760 50 q-10 -8 -15 -15"/>
+      <path d="M1180 48 q-4 -13 -1 -22 M1180 48 q4 -11 10 -18 M1180 48 q-10 -8 -15 -15"/>
+    </g>
+  </svg>
 </section>
 
 <footer id="contact">
@@ -304,6 +395,11 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
     </div>
   </div>
 </footer>
+
+<button class="line-fab" onclick="lineDealer()" aria-label="สอบถามทาง LINE">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 3C6.48 3 2 6.77 2 11.42c0 2.77 1.56 5.22 3.96 6.74-.13.5-.74 2.78-.77 2.97 0 0-.01.13.07.18.09.06.19.02.19.02.26-.04 2.97-1.96 3.45-2.3.99.23 2.03.35 3.1.35 5.52 0 10-3.77 10-8.42S17.52 3 12 3z"/></svg>
+  <span>ทัก LINE</span>
+</button>
 
 <div class="overlay" id="overlay">
   <div class="backdrop" onclick="closeModal()"></div>
@@ -347,10 +443,12 @@ const emoOf = c => EMO[c] || "📦";
 async function init(){
   const ls = $("loadState");
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const [stRes, pRes, bRes] = await Promise.all([
+  const [stRes, pRes, bRes, bnRes, vdRes] = await Promise.all([
     sb.from("site_settings").select("*"),
-    sb.from("products").select("code,name,category,brand,unit,image_url").eq("is_active", true).range(0, 4999),
-    sb.from("brands").select("name,logo_url")
+    sb.from("products").select("code,name,category,brand,unit,image_url,is_featured").eq("is_active", true).range(0, 4999),
+    sb.from("brands").select("name,logo_url,sort_order"),
+    sb.from("banners").select("*").eq("is_active", true).not("image_url","is",null).order("sort_order").order("id"),
+    sb.from("videos").select("*").eq("is_active", true).order("sort_order").order("id")
   ]);
   if(pRes.error){ ls.innerHTML = "<b>โหลดข้อมูลไม่สำเร็จ</b>" + esc(pRes.error.message); return; }
 
@@ -365,18 +463,20 @@ async function init(){
   const cCnt = new Map(), bCnt = new Map(), uIdx = new Map();
   rows.forEach(r=>{ cCnt.set(r.category,(cCnt.get(r.category)||0)+1); bCnt.set(r.brand,(bCnt.get(r.brand)||0)+1); });
   CATS = [...cCnt.keys()].sort((a,b)=>cCnt.get(b)-cCnt.get(a));
+  const bMeta = Object.fromEntries((bRes.data||[]).map(r=>[r.name, r]));
+  const bSort = n => (bMeta[n] && bMeta[n].sort_order != null) ? bMeta[n].sort_order : 99999;
   BRANDS = [...bCnt.keys()].sort((a,b)=>{
     const ax=a.includes("ไม่ระบุ")?1:0, bx=b.includes("ไม่ระบุ")?1:0;
-    return ax-bx || bCnt.get(b)-bCnt.get(a);
+    return ax-bx || bSort(a)-bSort(b) || bCnt.get(b)-bCnt.get(a);
   });
   const ci = new Map(CATS.map((c,i)=>[c,i])), bi = new Map(BRANDS.map((b,i)=>[b,i]));
   UNITS = [];
   rows.forEach(r=>{ if(!uIdx.has(r.unit)){ uIdx.set(r.unit, UNITS.length); UNITS.push(r.unit); } });
-  P = rows.map(r=>[r.code, r.name, ci.get(r.category), bi.get(r.brand), uIdx.get(r.unit), r.image_url||""]);
+  P = rows.map(r=>[r.code, r.name, ci.get(r.category), bi.get(r.brand), uIdx.get(r.unit), r.image_url||"", r.is_featured?1:0]);
   P.sort((a,b)=> a[2]-b[2] || a[1].localeCompare(b[1],"th"));
   catCount = CATS.map((_,i)=>P.filter(p=>p[2]===i).length);
   brandCount = BRANDS.map((_,i)=>P.filter(p=>p[3]===i).length);
-  brandLogo = Object.fromEntries((bRes.data||[]).map(r=>[r.name, r.logo_url||""]));
+  brandLogo = Object.fromEntries((bRes.data||[]).map(r=>[r.name, r.logo_url||""])); void 0;
 
   $("heroStats").textContent = `${P.length.toLocaleString()} รายการ · ${CATS.length} หมวดหมู่ · ${BRANDS.filter(b=>!b.includes("ไม่ระบุ")).length}+ แบรนด์`;
 
@@ -384,7 +484,9 @@ async function init(){
   BRANDS.forEach((b,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=`${b} (${brandCount[i]})`; bs.appendChild(o); });
 
   ls.style.display = "none";
-  buildCats(); buildBrands(); render();
+  BANNERS = bnRes.error ? [] : (bnRes.data||[]);
+  VIDEOS = vdRes.error ? [] : (vdRes.data||[]);
+  buildCats(); buildBrands(); buildBanners(); buildFeatured(); buildVideos(); render();
 }
 
 /* ── หมวดหมู่แบบไทล์ ── */
@@ -558,6 +660,87 @@ function goBrand(i){
   $("catalog").scrollIntoView({behavior: reduceMotion?"auto":"smooth"});
 }
 function clearBrand(){ state.brand=-1; $("brandSel").value=-1; render(); }
+
+/* ── แบนเนอร์โปรโมชั่น ── */
+let BANNERS = [], bnTimer = null;
+function buildBanners(){
+  const sec = $("bannersSec");
+  if(!BANNERS.length){ sec.style.display="none"; return; }
+  sec.style.display = "block";
+  const t = $("bnrTrack");
+  t.innerHTML = BANNERS.map((b,i)=>
+    `<a class="bnr" ${b.link_url?`href="${esc(b.link_url)}" target="_blank" rel="noopener"`:`href="#catalog"`}><img src="${esc(b.image_url)}" alt="โปรโมชั่น" loading="${i?"lazy":"eager"}"></a>`).join("");
+  const d = $("bnrDots");
+  if(BANNERS.length > 1){
+    d.innerHTML = BANNERS.map((_,i)=>`<button class="bd${i?"":" on"}" onclick="bnGo(${i})" aria-label="แบนเนอร์ที่ ${i+1}"></button>`).join("");
+    t.addEventListener("scroll", ()=>{
+      const i = Math.round(t.scrollLeft / t.clientWidth);
+      [...d.children].forEach((c,j)=>c.classList.toggle("on", j===i));
+    }, { passive:true });
+    bnAuto();
+    t.addEventListener("pointerdown", ()=>clearInterval(bnTimer), { passive:true });
+  } else d.innerHTML = "";
+}
+function bnGo(i){ const t=$("bnrTrack"); t.scrollTo({ left:i*t.clientWidth, behavior: reduceMotion?"auto":"smooth" }); }
+function bnAuto(){
+  if(reduceMotion) return;
+  clearInterval(bnTimer);
+  bnTimer = setInterval(()=>{
+    const t=$("bnrTrack");
+    const i = Math.round(t.scrollLeft / t.clientWidth);
+    bnGo((i+1) % BANNERS.length);
+  }, 5000);
+}
+
+/* ── สินค้าแนะนำ ── */
+function buildFeatured(){
+  const f = P.map((p,idx)=>[p,idx]).filter(([p])=>p[6]);
+  const sec = $("featSec");
+  if(!f.length){ sec.style.display="none"; return; }
+  sec.style.display = "block";
+  $("featRow").innerHTML = f.map(([p,idx])=>{
+    const brand = BRANDS[p[3]] || "";
+    const noBrand = brand.includes("ไม่ระบุ");
+    const img = p[5] ? `<img loading="lazy" src="${esc(p[5])}" alt="" onerror="this.remove()">` : "";
+    return `<button class="card fcard" onclick="openM(${idx}, this)" aria-label="${esc(p[1])}">
+      <div class="plate"><span class="fbadge">แนะนำ</span><span class="emo">${emoOf(CATS[p[2]])}</span>${img}</div>
+      <div class="body"><div class="code mono">${esc(p[0])}</div><div class="name">${esc(p[1])}</div>
+      <div class="meta">${noBrand?"":`<b>${esc(brand)}</b> · `}${esc(CATS[p[2]])}</div></div></button>`;
+  }).join("");
+}
+
+/* ── วิดีโอสาธิต ── */
+let VIDEOS = [];
+function videoEmbed(v){
+  const u = String(v.url||"");
+  let m;
+  if((m = u.match(/tiktok\.com\/[^\s]*\/video\/(\d+)/))) return { type:"tt", src:`https://www.tiktok.com/embed/v2/${m[1]}` };
+  if((m = u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{6,})/))){
+    return { type: u.includes("/shorts/") ? "tt" : "yt", src:`https://www.youtube.com/embed/${m[1]}` };
+  }
+  return null;
+}
+function buildVideos(){
+  const sec = $("videosSec");
+  const list = VIDEOS.map(v=>({v, e:videoEmbed(v)})).filter(x=>x.e);
+  if(!list.length){ sec.style.display="none"; return; }
+  sec.style.display = "block";
+  $("vidRow").innerHTML = list.map(({v,e})=>
+    `<div class="vwrap"><div class="vcard ${e.type}" data-src="${esc(e.src)}"></div>${v.title?`<span class="vt">${esc(v.title)}</span>`:""}</div>`).join("");
+  const io2 = new IntersectionObserver(es=>{
+    es.forEach(en=>{
+      if(!en.isIntersecting) return;
+      document.querySelectorAll(".vcard[data-src]").forEach(c=>{
+        const f = document.createElement("iframe");
+        f.src = c.dataset.src; f.loading = "lazy"; f.allowFullscreen = true;
+        f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture");
+        c.appendChild(f); c.removeAttribute("data-src");
+      });
+      io2.disconnect();
+    });
+  }, { rootMargin:"250px" });
+  io2.observe(sec);
+}
 
 function lineDealer(){
   const msg = encodeURIComponent("สนใจสมัครเป็นตัวแทนจำหน่าย ขอรายละเอียดและราคาส่งครับ/ค่ะ");
