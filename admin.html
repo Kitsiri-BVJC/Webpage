@@ -102,11 +102,21 @@ td .nm{font-weight:600;line-height:1.35}
 .m-foot .grow{flex:1}
 
 /* brands */
-.brrow{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px solid var(--rule)}
+.brrow{display:flex;align-items:center;gap:8px;padding:10px 2px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.brnum{font-family:'Chakra Petch',sans-serif;font-size:12px;color:var(--ink2);width:20px;text-align:center;flex:0 0 auto}
 .brlogo{width:46px;height:46px;border-radius:10px;background:var(--paper);display:grid;place-items:center;font-weight:700;font-size:16px;color:var(--ink2);overflow:hidden;flex:0 0 auto;border:1px solid var(--rule)}
 .brlogo img{width:100%;height:100%;object-fit:contain;padding:3px}
 .brname{flex:1;font-weight:600;font-size:14.5px;line-height:1.3}
 .brname small{display:block;color:var(--ink2);font-weight:400;font-size:12px}
+
+/* banners & videos */
+.bnrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.bnimg{width:120px;height:44px;border-radius:8px;object-fit:cover;background:var(--paper);border:1px solid var(--rule);flex:0 0 auto}
+.bnrow input{flex:1;min-width:140px;padding:8px 10px;border:1.5px solid var(--rule);border-radius:8px}
+.vdrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.vdrow .vdi{flex:1;min-width:0}
+.vdrow .vdi b{display:block;font-size:14px;line-height:1.3}
+.vdrow .vdi small{color:var(--ink2);font-size:12px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* toast */
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--steel);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:500;opacity:0;transition:.25s;z-index:200;max-width:92vw;text-align:center}
@@ -167,7 +177,9 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
 <path d="M1195.670811836914 759.066V652.1257534179688H1269.906407540039V283.0062465820313H1166.9635974814453V407.9477749023438H1054.258946602539V176.06600000000003H1655.5517322470703V407.9477749023438H1542.847081368164V283.0062465820313H1439.9042713095703V652.1257534179688H1514.1398670126953V759.066Z"/>
 </g></svg></span><span>บี วี เจ ซี กรุ๊ป<small>ADMIN</small></span></div>
       <div class="sp">
-        <button class="btn btn-steel" onclick="openBrands()">🏷 โลโก้แบรนด์</button>
+        <button class="btn btn-steel" onclick="openBanners()">🖼 แบนเนอร์</button>
+        <button class="btn btn-steel" onclick="openVideos()">🎬 วิดีโอ</button>
+        <button class="btn btn-steel" onclick="openBrands()">🏷 แบรนด์</button>
         <button class="btn btn-steel" onclick="openSettings()">⚙ ตั้งค่าเว็บ</button>
         <button class="btn btn-steel" onclick="logout()">ออกจากระบบ</button>
       </div>
@@ -183,6 +195,7 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
         <option value="">ทุกสถานะ</option>
         <option value="1">แสดงบนเว็บ</option>
         <option value="0">ซ่อนอยู่</option>
+        <option value="f">⭐ สินค้าแนะนำ</option>
       </select>
       <button class="btn btn-red" onclick="openEdit(null)">+ เพิ่มสินค้า</button>
     </div>
@@ -216,6 +229,7 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
         <div class="f"><label>ยี่ห้อ</label><input id="eBrand" list="brandList" placeholder="ไม่ระบุยี่ห้อ"></div>
       </div>
       <label class="chk"><span class="sw"><input type="checkbox" id="eActive" checked><i></i></span> แสดงสินค้านี้บนหน้าเว็บ</label>
+      <label class="chk" style="margin-top:10px"><span class="sw"><input type="checkbox" id="eFeat"><i></i></span> ⭐ สินค้าแนะนำ (โชว์บนหน้าแรกของเว็บ)</label>
       <datalist id="catList"></datalist><datalist id="brandList"></datalist><datalist id="unitList"></datalist>
     </div>
     <div class="m-foot">
@@ -248,6 +262,31 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
   </div>
 </div>
 <input type="file" id="brFile" accept="image/*" style="display:none" onchange="brPick(this)">
+
+<!-- ── modal แบนเนอร์ ── -->
+<div class="overlay" id="bnOv" onclick="if(event.target===this)closeBanners()">
+  <div class="modal" style="max-width:560px" role="dialog" aria-modal="true">
+    <div class="m-head"><h3>แบนเนอร์โปรโมชั่น</h3><button onclick="closeBanners()" aria-label="ปิด">✕</button></div>
+    <div class="m-body">
+      <button class="btn btn-red" style="width:100%;margin-bottom:6px" onclick="$('bnFile').click()">+ เพิ่มแบนเนอร์ (อัพรูป แนะนำ 1200×400)</button>
+      <div id="bnList"><div class="loading">กำลังโหลด...</div></div>
+    </div>
+  </div>
+</div>
+<input type="file" id="bnFile" accept="image/*" style="display:none" onchange="bnAdd(this)">
+
+<!-- ── modal วิดีโอ ── -->
+<div class="overlay" id="vdOv" onclick="if(event.target===this)closeVideos()">
+  <div class="modal" style="max-width:560px" role="dialog" aria-modal="true">
+    <div class="m-head"><h3>วิดีโอสาธิตสินค้า</h3><button onclick="closeVideos()" aria-label="ปิด">✕</button></div>
+    <div class="m-body">
+      <div class="f"><label>ชื่อคลิป</label><input id="vdTitle" placeholder="เช่น รีวิวเครื่องพ่นยา KASEI KS-20A"></div>
+      <div class="f"><label>ลิงก์ TikTok หรือ YouTube</label><input id="vdUrl" placeholder="วางลิงก์คลิปตรงนี้"></div>
+      <button class="btn btn-red" style="width:100%;margin-bottom:14px" onclick="vdAdd()">+ เพิ่มวิดีโอ</button>
+      <div id="vdList"></div>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -308,7 +347,8 @@ function filtered(){
   return rows.filter(r=>{
     if(c && r.category!==c) return false;
     if(b && r.brand!==b) return false;
-    if(st!=="" && String(+r.is_active)!==st) return false;
+    if(st==="f"){ if(!r.is_featured) return false; }
+    else if(st!=="" && String(+r.is_active)!==st) return false;
     if(q && !(r.name+" "+r.code+" "+r.brand).toLowerCase().includes(q)) return false;
     return true;
   });
@@ -321,7 +361,7 @@ function renderTable(){
   for(const r of show){
     h += `<tr class="${r.is_active?"":"off"}">
       <td><div class="thumb">${r.image_url?`<img loading="lazy" src="${esc(r.image_url)}" alt="">`:"📦"}</div></td>
-      <td><div class="code">${esc(r.code)}</div><div class="nm">${esc(r.name)}</div></td>
+      <td><div class="code">${esc(r.code)}</div><div class="nm">${r.is_featured?"⭐ ":""}${esc(r.name)}</div></td>
       <td class="hide-m"><span class="pill">${esc(r.category)}</span></td>
       <td class="hide-m"><span class="pill">${esc(r.brand)}</span></td>
       <td><span class="sw"><input type="checkbox" ${r.is_active?"checked":""} onchange="toggleActive(${r.id},this)" aria-label="แสดงบนเว็บ"><i></i></span></td>
@@ -355,6 +395,7 @@ function openEdit(id){
   $("eBrand").value = editing?.brand || "";
   $("eUnit").value = editing?.unit || "ตัว";
   $("eActive").checked = editing ? !!editing.is_active : true;
+  $("eFeat").checked = editing ? !!editing.is_featured : false;
   $("delBtn").style.display = editing ? "" : "none";
   $("imgDelBtn").style.display = editing?.image_url ? "" : "none";
   $("imgPrev").innerHTML = editing?.image_url ? `<img src="${esc(editing.image_url)}" alt="">` : "📦";
@@ -389,7 +430,7 @@ function removeImage(){
 async function saveProduct(){
   const code=$("eCode").value.trim(), name=$("eName").value.trim(), cat=$("eCat").value.trim();
   if(!code || !name || !cat){ toast("กรอก รหัส / ชื่อ / หมวดหมู่ ให้ครบก่อนครับ", true); return; }
-  const body = { name, category:cat, brand:$("eBrand").value.trim()||"ไม่ระบุยี่ห้อ", unit:$("eUnit").value.trim()||"ตัว", is_active:$("eActive").checked };
+  const body = { name, category:cat, brand:$("eBrand").value.trim()||"ไม่ระบุยี่ห้อ", unit:$("eUnit").value.trim()||"ตัว", is_active:$("eActive").checked, is_featured:$("eFeat").checked };
   $("saveBtn").disabled = true; $("saveBtn").textContent = "กำลังบันทึก...";
   try{
     let row = editing;
@@ -457,24 +498,42 @@ async function openBrands(){
   try{
     const names = [...new Set(rows.map(r=>r.brand))].filter(b=>b && b!=="ไม่ระบุยี่ห้อ");
     const { data:ex, error:e1 } = await sb.from("brands").select("*");
-    if(e1) throw e1.message.includes("does not exist") ? new Error("ยังไม่ได้รันไฟล์ update-brands.sql ใน SQL Editor ครับ") : e1;
+    if(e1) throw e1.message.includes("does not exist") ? new Error("ยังไม่ได้รันไฟล์ SQL อัพเดทล่าสุด (update-v3.sql) ใน SQL Editor ครับ") : e1;
     const have = new Set((ex||[]).map(r=>r.name));
     const miss = names.filter(n=>!have.has(n));
-    if(miss.length) await sb.from("brands").insert(miss.map(name=>({name})));
-    const { data } = await sb.from("brands").select("*").order("name");
+    if(miss.length){
+      const base = (ex||[]).reduce((m,r)=>Math.max(m, r.sort_order||0), 0);
+      await sb.from("brands").insert(miss.map((name,i)=>({ name, sort_order: base+i+1 })));
+    }
+    const { data } = await sb.from("brands").select("*").order("sort_order").order("id");
     brRows = data||[];
     renderBrands();
   }catch(e){ $("brList").innerHTML = `<div class="loading">${esc(e.message)}</div>`; }
 }
 function renderBrands(){
   const cnt = {}; rows.forEach(r=>cnt[r.brand]=(cnt[r.brand]||0)+1);
-  brRows.sort((x,y)=>(cnt[y.name]||0)-(cnt[x.name]||0));
-  $("brList").innerHTML = brRows.map(b=>`<div class="brrow">
+  brRows.sort((x,y)=>((x.sort_order??9999)-(y.sort_order??9999)) || (x.id-y.id));
+  $("brList").innerHTML = brRows.map((b,i)=>`<div class="brrow">
+    <span class="brnum">${i+1}</span>
     <span class="brlogo">${b.logo_url?`<img src="${esc(b.logo_url)}" alt="">`:esc([...b.name].slice(0,2).join(""))}</span>
     <span class="brname">${esc(b.name)}<small>${cnt[b.name]||0} รายการ</small></span>
-    <button class="btn btn-ghost rowbtn" onclick="brUpload(${b.id})">${b.logo_url?"เปลี่ยน":"อัพโหลดโลโก้"}</button>
+    <button class="btn btn-ghost rowbtn" onclick="brMove(${b.id},-1)" ${i===0?"disabled":""}>↑</button>
+    <button class="btn btn-ghost rowbtn" onclick="brMove(${b.id},1)" ${i===brRows.length-1?"disabled":""}>↓</button>
+    <button class="btn btn-ghost rowbtn" onclick="brUpload(${b.id})">${b.logo_url?"เปลี่ยน":"โลโก้"}</button>
     ${b.logo_url?`<button class="btn btn-danger rowbtn" onclick="brDelLogo(${b.id})">ลบ</button>`:""}
   </div>`).join("") || '<div class="loading">ยังไม่มีแบรนด์ในระบบ</div>';
+}
+async function brMove(id, dir){
+  const i = brRows.findIndex(x=>x.id===id), j = i+dir;
+  if(j<0 || j>=brRows.length) return;
+  const A = brRows[i], B = brRows[j];
+  const sa = A.sort_order ?? 9999;
+  const sbv = (B.sort_order ?? 9999) === sa ? sa + dir : (B.sort_order ?? 9999);
+  const r1 = await sb.from("brands").update({ sort_order: sbv }).eq("id", A.id);
+  const r2 = await sb.from("brands").update({ sort_order: sa }).eq("id", B.id);
+  if(r1.error || r2.error){ toast("จัดลำดับไม่สำเร็จ — ต้องรัน update-v3.sql ก่อนครับ", true); return; }
+  A.sort_order = sbv; B.sort_order = sa;
+  renderBrands();
 }
 function brUpload(id){ brTarget=id; $("brFile").value=""; $("brFile").click(); }
 async function brPick(input){
@@ -521,7 +580,129 @@ async function brDelLogo(id){
 }
 function closeBrands(){ $("brOv").classList.remove("open"); document.body.style.overflow=""; }
 
-document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeEdit(); closeSettings(); closeBrands(); } });
+/* ── แบนเนอร์โปรโมชั่น ── */
+let bnRows = [];
+async function openBanners(){
+  $("bnOv").classList.add("open"); document.body.style.overflow="hidden";
+  $("bnList").innerHTML = '<div class="loading">กำลังโหลด...</div>';
+  const { data, error } = await sb.from("banners").select("*").order("sort_order").order("id");
+  if(error){
+    $("bnList").innerHTML = `<div class="loading">${error.message.includes("does not exist") ? "ยังไม่ได้รันไฟล์ update-v2.sql ใน SQL Editor ครับ" : esc(error.message)}</div>`;
+    return;
+  }
+  bnRows = data||[]; renderBanners();
+}
+function renderBanners(){
+  $("bnList").innerHTML = bnRows.map((b,i)=>`<div class="bnrow">
+    ${b.image_url?`<img class="bnimg" src="${esc(b.image_url)}" alt="">`:`<span class="bnimg"></span>`}
+    <input placeholder="ลิงก์เมื่อกดแบนเนอร์ (ไม่ใส่ก็ได้)" value="${esc(b.link_url||"")}" onchange="bnLink(${b.id}, this.value)">
+    <span class="sw"><input type="checkbox" ${b.is_active?"checked":""} onchange="bnToggle(${b.id},this)" aria-label="แสดง"><i></i></span>
+    <button class="btn btn-ghost rowbtn" onclick="bnMove(${b.id},-1)" ${i===0?"disabled":""}>↑</button>
+    <button class="btn btn-ghost rowbtn" onclick="bnMove(${b.id},1)" ${i===bnRows.length-1?"disabled":""}>↓</button>
+    <button class="btn btn-danger rowbtn" onclick="bnDel(${b.id})">ลบ</button>
+  </div>`).join("") || '<div class="loading">ยังไม่มีแบนเนอร์ กดปุ่มด้านบนเพื่อเพิ่ม</div>';
+}
+async function bnAdd(input){
+  const f = input.files[0]; if(!f) return;
+  toast("กำลังอัพโหลดแบนเนอร์...");
+  try{
+    const img = await createImageBitmap(f, { imageOrientation:"from-image" });
+    const sc = Math.min(1, 1600/Math.max(img.width,img.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.width*sc); c.height = Math.round(img.height*sc);
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+    const blob = await new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error("แปลงรูปไม่ได้")), "image/jpeg", .87));
+    const maxSort = bnRows.reduce((m,r)=>Math.max(m, r.sort_order||0), 0);
+    const { data:row, error } = await sb.from("banners").insert({ sort_order:maxSort+1 }).select().single();
+    if(error) throw error;
+    const path = `banner${row.id}.jpg`;
+    const { error:ue } = await sb.storage.from(BUCKET).upload(path, blob, { upsert:true, contentType:"image/jpeg" });
+    if(ue) throw ue;
+    const { data:{ publicUrl } } = sb.storage.from(BUCKET).getPublicUrl(path);
+    const { data:row2, error:e2 } = await sb.from("banners").update({ image_url: publicUrl+"?v="+Date.now() }).eq("id", row.id).select().single();
+    if(e2) throw e2;
+    bnRows.push(row2); renderBanners(); toast("เพิ่มแบนเนอร์แล้ว ✓");
+  }catch(e){ toast("เพิ่มไม่สำเร็จ: "+e.message, true); }
+  input.value = "";
+}
+async function bnLink(id, val){
+  const { error } = await sb.from("banners").update({ link_url: val.trim()||null }).eq("id", id);
+  if(error){ toast("บันทึกลิงก์ไม่สำเร็จ", true); return; }
+  const r = bnRows.find(x=>x.id===id); if(r) r.link_url = val.trim();
+  toast("บันทึกลิงก์แล้ว ✓");
+}
+async function bnToggle(id, el){
+  const { error } = await sb.from("banners").update({ is_active: el.checked }).eq("id", id);
+  if(error){ el.checked=!el.checked; toast("บันทึกไม่สำเร็จ", true); return; }
+  const r = bnRows.find(x=>x.id===id); if(r) r.is_active = el.checked;
+  toast(el.checked?"เปิดแสดงแล้ว":"ซ่อนแล้ว");
+}
+async function bnMove(id, dir){
+  const i = bnRows.findIndex(x=>x.id===id), j = i+dir;
+  if(j<0 || j>=bnRows.length) return;
+  const A = bnRows[i], B = bnRows[j];
+  const sa = A.sort_order, sbv = B.sort_order === sa ? sa + dir : B.sort_order;
+  await sb.from("banners").update({ sort_order:sbv }).eq("id", A.id);
+  await sb.from("banners").update({ sort_order:sa }).eq("id", B.id);
+  A.sort_order = sbv; B.sort_order = sa;
+  bnRows.sort((x,y)=>(x.sort_order-y.sort_order)||(x.id-y.id));
+  renderBanners();
+}
+async function bnDel(id){
+  if(!confirm("ลบแบนเนอร์นี้?")) return;
+  try{
+    await sb.storage.from(BUCKET).remove([`banner${id}.jpg`]);
+    const { error } = await sb.from("banners").delete().eq("id", id);
+    if(error) throw error;
+    bnRows = bnRows.filter(x=>x.id!==id); renderBanners(); toast("ลบแล้ว");
+  }catch(e){ toast("ลบไม่สำเร็จ: "+e.message, true); }
+}
+function closeBanners(){ $("bnOv").classList.remove("open"); document.body.style.overflow=""; }
+
+/* ── วิดีโอสาธิต ── */
+let vdRows = [];
+async function openVideos(){
+  $("vdOv").classList.add("open"); document.body.style.overflow="hidden";
+  $("vdList").innerHTML = '<div class="loading">กำลังโหลด...</div>';
+  const { data, error } = await sb.from("videos").select("*").order("sort_order").order("id");
+  if(error){
+    $("vdList").innerHTML = `<div class="loading">${error.message.includes("does not exist") ? "ยังไม่ได้รันไฟล์ update-v2.sql ใน SQL Editor ครับ" : esc(error.message)}</div>`;
+    return;
+  }
+  vdRows = data||[]; renderVideos();
+}
+function renderVideos(){
+  $("vdList").innerHTML = vdRows.map(v=>`<div class="vdrow">
+    <span class="vdi"><b>${esc(v.title||"(ไม่มีชื่อ)")}</b><small>${esc(v.url)}</small></span>
+    <span class="sw"><input type="checkbox" ${v.is_active?"checked":""} onchange="vdToggle(${v.id},this)" aria-label="แสดง"><i></i></span>
+    <button class="btn btn-danger rowbtn" onclick="vdDel(${v.id})">ลบ</button>
+  </div>`).join("") || '<div class="loading">ยังไม่มีวิดีโอ — วางลิงก์ TikTok/YouTube ด้านบนแล้วกดเพิ่ม</div>';
+}
+async function vdAdd(){
+  const title = $("vdTitle").value.trim(), url = $("vdUrl").value.trim();
+  if(!url){ toast("วางลิงก์คลิปก่อนครับ", true); return; }
+  if(!/tiktok\.com|youtu\.be|youtube\.com/.test(url)){ toast("รองรับเฉพาะลิงก์ TikTok หรือ YouTube ครับ", true); return; }
+  const { data, error } = await sb.from("videos").insert({ title, url }).select().single();
+  if(error){ toast("เพิ่มไม่สำเร็จ: "+error.message, true); return; }
+  vdRows.push(data); renderVideos();
+  $("vdTitle").value=""; $("vdUrl").value="";
+  toast("เพิ่มวิดีโอแล้ว ✓");
+}
+async function vdToggle(id, el){
+  const { error } = await sb.from("videos").update({ is_active: el.checked }).eq("id", id);
+  if(error){ el.checked=!el.checked; toast("บันทึกไม่สำเร็จ", true); return; }
+  const r = vdRows.find(x=>x.id===id); if(r) r.is_active = el.checked;
+  toast(el.checked?"เปิดแสดงแล้ว":"ซ่อนแล้ว");
+}
+async function vdDel(id){
+  if(!confirm("ลบวิดีโอนี้?")) return;
+  const { error } = await sb.from("videos").delete().eq("id", id);
+  if(error){ toast("ลบไม่สำเร็จ", true); return; }
+  vdRows = vdRows.filter(x=>x.id!==id); renderVideos(); toast("ลบแล้ว");
+}
+function closeVideos(){ $("vdOv").classList.remove("open"); document.body.style.overflow=""; }
+
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeEdit(); closeSettings(); closeBrands(); closeBanners(); closeVideos(); } });
 boot();
 </script>
 </body>
