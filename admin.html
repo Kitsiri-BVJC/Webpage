@@ -100,6 +100,13 @@ td .nm{font-weight:600;line-height:1.35}
 .m-foot{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--rule);padding:13px 18px;display:flex;gap:9px;flex-wrap:wrap}
 .m-foot .grow{flex:1}
 
+/* brands */
+.brrow{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px solid var(--rule)}
+.brlogo{width:46px;height:46px;border-radius:10px;background:var(--paper);display:grid;place-items:center;font-weight:700;font-size:16px;color:var(--ink2);overflow:hidden;flex:0 0 auto;border:1px solid var(--rule)}
+.brlogo img{width:100%;height:100%;object-fit:contain;padding:3px}
+.brname{flex:1;font-weight:600;font-size:14.5px;line-height:1.3}
+.brname small{display:block;color:var(--ink2);font-weight:400;font-size:12px}
+
 /* toast */
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--steel);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:500;opacity:0;transition:.25s;z-index:200;max-width:92vw;text-align:center}
 .toast.show{transform:translateX(-50%);opacity:1}
@@ -130,6 +137,7 @@ td .nm{font-weight:600;line-height:1.35}
     <div class="in">
       <div class="logo"><span class="mark">BVJC</span><span>บี วี เจ ซี กรุ๊ป<small>ADMIN</small></span></div>
       <div class="sp">
+        <button class="btn btn-steel" onclick="openBrands()">🏷 โลโก้แบรนด์</button>
         <button class="btn btn-steel" onclick="openSettings()">⚙ ตั้งค่าเว็บ</button>
         <button class="btn btn-steel" onclick="logout()">ออกจากระบบ</button>
       </div>
@@ -201,6 +209,15 @@ td .nm{font-weight:600;line-height:1.35}
     <div class="m-foot"><span class="grow"></span><button class="btn btn-ghost" onclick="closeSettings()">ยกเลิก</button><button class="btn btn-red" onclick="saveSettings()">บันทึกตั้งค่า</button></div>
   </div>
 </div>
+
+<!-- ── modal โลโก้แบรนด์ ── -->
+<div class="overlay" id="brOv" onclick="if(event.target===this)closeBrands()">
+  <div class="modal" style="max-width:520px" role="dialog" aria-modal="true">
+    <div class="m-head"><h3>โลโก้แบรนด์</h3><button onclick="closeBrands()" aria-label="ปิด">✕</button></div>
+    <div class="m-body" id="brList" style="padding-top:8px"><div class="loading">กำลังโหลด...</div></div>
+  </div>
+</div>
+<input type="file" id="brFile" accept="image/*" style="display:none" onchange="brPick(this)">
 
 <div class="toast" id="toast"></div>
 
@@ -402,7 +419,68 @@ async function saveSettings(){
   closeSettings(); toast("บันทึกตั้งค่าแล้ว ✓ หน้าเว็บจะใช้ค่าใหม่ทันที");
 }
 
-document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeEdit(); closeSettings(); } });
+/* ── โลโก้แบรนด์ ── */
+let brRows = [], brTarget = null;
+async function openBrands(){
+  $("brOv").classList.add("open"); document.body.style.overflow="hidden";
+  $("brList").innerHTML = '<div class="loading">กำลังโหลด...</div>';
+  try{
+    const names = [...new Set(rows.map(r=>r.brand))].filter(b=>b && b!=="ไม่ระบุยี่ห้อ");
+    const { data:ex, error:e1 } = await sb.from("brands").select("*");
+    if(e1) throw e1.message.includes("does not exist") ? new Error("ยังไม่ได้รันไฟล์ update-brands.sql ใน SQL Editor ครับ") : e1;
+    const have = new Set((ex||[]).map(r=>r.name));
+    const miss = names.filter(n=>!have.has(n));
+    if(miss.length) await sb.from("brands").insert(miss.map(name=>({name})));
+    const { data } = await sb.from("brands").select("*").order("name");
+    brRows = data||[];
+    renderBrands();
+  }catch(e){ $("brList").innerHTML = `<div class="loading">${esc(e.message)}</div>`; }
+}
+function renderBrands(){
+  const cnt = {}; rows.forEach(r=>cnt[r.brand]=(cnt[r.brand]||0)+1);
+  brRows.sort((x,y)=>(cnt[y.name]||0)-(cnt[x.name]||0));
+  $("brList").innerHTML = brRows.map(b=>`<div class="brrow">
+    <span class="brlogo">${b.logo_url?`<img src="${esc(b.logo_url)}" alt="">`:esc([...b.name].slice(0,2).join(""))}</span>
+    <span class="brname">${esc(b.name)}<small>${cnt[b.name]||0} รายการ</small></span>
+    <button class="btn btn-ghost rowbtn" onclick="brUpload(${b.id})">${b.logo_url?"เปลี่ยน":"อัพโหลดโลโก้"}</button>
+    ${b.logo_url?`<button class="btn btn-danger rowbtn" onclick="brDelLogo(${b.id})">ลบ</button>`:""}
+  </div>`).join("") || '<div class="loading">ยังไม่มีแบรนด์ในระบบ</div>';
+}
+function brUpload(id){ brTarget=id; $("brFile").value=""; $("brFile").click(); }
+async function brPick(input){
+  const f = input.files[0]; if(!f || !brTarget) return;
+  toast("กำลังอัพโหลดโลโก้...");
+  try{
+    const img = await createImageBitmap(f, { imageOrientation:"from-image" });
+    const sc = Math.min(1, 600/Math.max(img.width,img.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.width*sc); c.height = Math.round(img.height*sc);
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+    const blob = await new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error("แปลงรูปไม่ได้")), "image/png"));
+    const path = `b${brTarget}.png`;
+    const { error:ue } = await sb.storage.from(BUCKET).upload(path, blob, { upsert:true, contentType:"image/png" });
+    if(ue) throw ue;
+    const { data:{ publicUrl } } = sb.storage.from(BUCKET).getPublicUrl(path);
+    const url = publicUrl + "?v=" + Date.now();
+    const { error:e2 } = await sb.from("brands").update({ logo_url:url }).eq("id", brTarget);
+    if(e2) throw e2;
+    const r = brRows.find(x=>x.id===brTarget); if(r) r.logo_url = url;
+    renderBrands(); toast("อัพโหลดโลโก้แล้ว ✓");
+  }catch(e){ toast("อัพโหลดไม่สำเร็จ: "+e.message, true); }
+}
+async function brDelLogo(id){
+  if(!confirm("ลบโลโก้แบรนด์นี้?")) return;
+  try{
+    await sb.storage.from(BUCKET).remove([`b${id}.png`]);
+    const { error } = await sb.from("brands").update({ logo_url:null }).eq("id", id);
+    if(error) throw error;
+    const r = brRows.find(x=>x.id===id); if(r) r.logo_url = null;
+    renderBrands(); toast("ลบโลโก้แล้ว");
+  }catch(e){ toast("ลบไม่สำเร็จ: "+e.message, true); }
+}
+function closeBrands(){ $("brOv").classList.remove("open"); document.body.style.overflow=""; }
+
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeEdit(); closeSettings(); closeBrands(); } });
 boot();
 </script>
 </body>
