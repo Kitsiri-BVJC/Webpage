@@ -664,12 +664,18 @@ function clearBrand(){ state.brand=-1; $("brandSel").value=-1; render(); }
 /* ── ลิงก์ LINE (รองรับ @OA-ID / ลิงก์เต็ม / ไอดีส่วนตัว) ── */
 function lineUrl(message){
   const v = String(LINE_OA_ID||"").trim();
-  if(/^https?:\/\//i.test(v)) return v;                                        /* วางลิงก์เต็ม เช่น https://lin.ee/xxxx */
-  if(v.startsWith("@")) return `https://line.me/R/oaMessage/${v}/?${encodeURIComponent(message)}`;  /* LINE OA */
-  if(v) return `https://line.me/ti/p/~${encodeURIComponent(v)}`;                /* ไอดี LINE ส่วนตัว */
+  const at = v.match(/@[A-Za-z0-9._-]+/);          /* ดึง @id ออกมาไม่ว่าจะใส่มาทรงไหน เช่น https://lin.ee/@347qrddk */
+  if(at) return `https://line.me/R/ti/p/${at[0]}`; /* → หน้าแอดเพื่อน LINE OA อัตโนมัติ */
+  if(/^https?:\/\//i.test(v)) return v;           /* ลิงก์เต็มของจริง เช่น https://lin.ee/AbCd12 */
+  if(v) return `https://line.me/ti/p/~${encodeURIComponent(v)}`; /* ไอดี LINE ส่วนตัว */
   return "https://line.me";
 }
-function lineLabel(){ return /^https?:\/\//i.test(String(LINE_OA_ID||"")) ? "กดเพื่อแอดเพื่อน" : LINE_OA_ID; }
+function lineLabel(){
+  const v = String(LINE_OA_ID||"");
+  const at = v.match(/@[A-Za-z0-9._-]+/);
+  if(at) return at[0];
+  return /^https?:\/\//i.test(v) ? "กดเพื่อแอดเพื่อน" : v;
+}
 
 /* ── แบนเนอร์โปรโมชั่น ── */
 let BANNERS = [], bnTimer = null;
