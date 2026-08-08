@@ -519,8 +519,9 @@ function renderBrands(){
     <span class="brname">${esc(b.name)}<small>${cnt[b.name]||0} รายการ</small></span>
     <button class="btn btn-ghost rowbtn" onclick="brMove(${b.id},-1)" ${i===0?"disabled":""}>↑</button>
     <button class="btn btn-ghost rowbtn" onclick="brMove(${b.id},1)" ${i===brRows.length-1?"disabled":""}>↓</button>
-    <button class="btn btn-ghost rowbtn" onclick="brUpload(${b.id})">${b.logo_url?"เปลี่ยน":"โลโก้"}</button>
-    ${b.logo_url?`<button class="btn btn-danger rowbtn" onclick="brDelLogo(${b.id})">ลบ</button>`:""}
+    <button class="btn btn-ghost rowbtn" onclick="brUpload(${b.id})">${b.logo_url?"เปลี่ยนโลโก้":"โลโก้"}</button>
+    ${b.logo_url?`<button class="btn btn-ghost rowbtn" onclick="brDelLogo(${b.id})">ลบโลโก้</button>`:""}
+    <button class="btn btn-danger rowbtn" onclick="brDelBrand(${b.id})">ลบแบรนด์</button>
   </div>`).join("") || '<div class="loading">ยังไม่มีแบรนด์ในระบบ</div>';
 }
 async function brMove(id, dir){
@@ -576,6 +577,35 @@ async function brDelLogo(id){
     if(error) throw error;
     const r = brRows.find(x=>x.id===id); if(r) r.logo_url = null;
     renderBrands(); toast("ลบโลโก้แล้ว");
+  }catch(e){ toast("ลบไม่สำเร็จ: "+e.message, true); }
+}
+async function brDelBrand(id){
+  const b = brRows.find(x=>x.id===id); if(!b) return;
+  const prods = rows.filter(r=>r.brand===b.name);
+  const msg = prods.length
+    ? `เลิกขายแบรนด์ "${b.name}" — จะลบสินค้าทั้งหมด ${prods.length} รายการ พร้อมรูปที่อัพไว้ ออกจากระบบถาวร กู้คืนไม่ได้`
+    : `ลบแบรนด์ "${b.name}" ออกจากระบบถาวร? (แบรนด์นี้ไม่มีสินค้าแล้ว)`;
+  if(!confirm(msg)) return;
+  const typed = prompt(`ยืนยันขั้นสุดท้าย — พิมพ์ชื่อแบรนด์ให้ตรงเป๊ะ:\n\n${b.name}`);
+  if(typed === null) return;
+  if(typed.trim() !== b.name){ toast("ชื่อไม่ตรง ยกเลิกการลบ", true); return; }
+  toast("กำลังลบแบรนด์...");
+  try{
+    const paths = prods.map(p=>`p${p.id}.jpg`);
+    for(let i=0; i<paths.length; i+=50){
+      await sb.storage.from(BUCKET).remove(paths.slice(i, i+50));
+    }
+    if(prods.length){
+      const { error:pe } = await sb.from("products").delete().eq("brand", b.name);
+      if(pe) throw pe;
+    }
+    await sb.storage.from(BUCKET).remove([`b${id}.png`, `b${id}.svg`]);
+    const { error } = await sb.from("brands").delete().eq("id", id);
+    if(error) throw error;
+    rows = rows.filter(r=>r.brand!==b.name);
+    brRows = brRows.filter(x=>x.id!==id);
+    buildFilters(); renderTable(); renderBrands();
+    toast(`ลบแบรนด์ ${b.name} แล้ว${prods.length?` (สินค้า ${prods.length} รายการ)`:""}`);
   }catch(e){ toast("ลบไม่สำเร็จ: "+e.message, true); }
 }
 function closeBrands(){ $("brOv").classList.remove("open"); document.body.style.overflow=""; }
