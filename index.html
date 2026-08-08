@@ -185,6 +185,28 @@ footer a{color:var(--red)}
   .modal.morph,.rv,.m-body>*,.backdrop{transition:none!important}
   .rv{opacity:1;transform:none}
 }
+
+/* ═══ mobile hardening ═══ */
+input,select{font-size:16px}                 /* กัน iOS ซูมอัตโนมัติตอนแตะช่องกรอก */
+.search input{font-size:16px;-webkit-appearance:none;appearance:none}
+.toolbar select{font-size:16px}
+[id]{scroll-margin-top:66px}                 /* กัน nav บังหัวข้อตอนกดลิงก์เลื่อน */
+.cats{-webkit-overflow-scrolling:touch}
+.modal{max-height:92vh;max-height:92dvh;overscroll-behavior:contain}
+.m-close{width:40px;height:40px;-webkit-backdrop-filter:blur(8px)}
+.tr-md{text-align:right}
+@media(max-width:680px){
+  .hero{padding:54px 18px 14px}
+  .overlay{padding:10px}
+  footer .row{flex-direction:column;gap:10px}
+  .tr-md{text-align:left}
+}
+@media(hover:none){                           /* จอสัมผัส: ปิด hover ค้าง */
+  .card:hover,.btile:hover,.cat-t:hover{transform:none;box-shadow:none}
+  .card:hover .plate .emo,.card:hover .plate img{transform:none}
+  .pill-red:hover{transform:none;background:var(--red)}
+  .btile:hover{background:var(--bg2)}
+}
 </style>
 </head>
 <body>
@@ -261,7 +283,7 @@ footer a{color:var(--red)}
   <div class="in">
     <div class="row">
       <div><b>บริษัท บี วี เจ ซี กรุ๊ป จำกัด</b><br>ผู้นำเข้าและจัดจำหน่ายเครื่องจักรการเกษตรและอุปกรณ์ครัวจากประเทศจีน</div>
-      <div style="text-align:right">LINE: <a href="#" onclick="lineDealer();return false" id="lineTxt"></a><br>โทร: <a href="#" id="telA"></a></div>
+      <div class="tr-md">LINE: <a href="#" onclick="lineDealer();return false" id="lineTxt"></a><br>โทร: <a href="#" id="telA"></a></div>
     </div>
   </div>
 </footer>
