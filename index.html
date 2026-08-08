@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>บี วี เจ ซี กรุ๊ป — นำเข้าตรงจากโรงงาน ถึงหน้าร้านคุณ</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201725.4%20935.1%22%3E%0A%3Crect%20x%3D%2235.0%22%20y%3D%2235.0%22%20width%3D%221655.5%22%20height%3D%2297.4%22%20fill%3D%22%23B8434F%22%2F%3E%0A%3Crect%20x%3D%2235.0%22%20y%3D%22802.8%22%20width%3D%221655.5%22%20height%3D%2297.4%22%20fill%3D%22%23B8434F%22%2F%3E%0A%3Cg%20fill%3D%22%233759AD%22%3E%0A%3Cpath%20d%3D%22M69.86510578222655%20759.066V652.1257534179688H125.8655330283203V283.0062465820313H69.86510578222655V176.06600000000003H351.8638240439453V283.0062465820313H295.8633967978516V437.8308315429688L458.3358699423828%20283.0062465820313H416.2765437705078V176.06600000000003H692.9811946494141V283.0062465820313H641.3042842490235L441.9790584189453%20473.3011684570313L441.6260921103516%20416.59566308593753L660.2748347861328%20652.1257534179688H711.6282283408203V759.066H420.0413753134766V652.1257534179688H462.1007014853516L295.8633967978516%20469.94820214843753V652.1257534179688H351.8638240439453V759.066Z%22%2F%3E%0A%3Cpath%20d%3D%22M741.9442283408204%20759.066V652.1257534179688H797.9446555869141V283.0062465820313H741.9442283408204V176.06600000000003H1023.9429466025391V283.0062465820313H967.9425193564454V652.1257534179688H1023.9429466025391V759.066Z%22%2F%3E%0A%3Cpath%20d%3D%22M1195.670811836914%20759.066V652.1257534179688H1269.906407540039V283.0062465820313H1166.9635974814453V407.9477749023438H1054.258946602539V176.06600000000003H1655.5517322470703V407.9477749023438H1542.847081368164V283.0062465820313H1439.9042713095703V652.1257534179688H1514.1398670126953V759.066Z%22%2F%3E%0A%3C%2Fg%3E%3C%2Fsvg%3E">
 <meta name="description" content="ผู้นำเข้าเครื่องจักรการเกษตร ปั้มน้ำ เครื่องครัว จากโรงงานจีน กว่า 892 รายการ พร้อมอะไหล่กว่า 5,000 ชิ้น เปิดรับตัวแทนจำหน่ายทั่วประเทศ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
 :root{
   --ink:#1d1d1f; --ink2:#6e6e73; --hair:#d2d2d7;
   --bg:#ffffff; --bg2:#f5f5f7;
-  --red:#C62127; --red-hover:#a91b20;
+  --red:#B8434F; --red-hover:#9d3743; --blue:#3759AD;
   --r-card:18px; --r-modal:22px;
   --ease:cubic-bezier(.28,.11,.32,1);
 }
@@ -29,8 +30,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══ nav ═══ */
 .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.08)}
 .nav .in{max-width:1040px;margin:0 auto;padding:0 22px;height:52px;display:flex;align-items:center;gap:26px}
-.nav .brand{font-weight:700;font-size:17px;letter-spacing:.3px}
-.nav .brand span{color:var(--red)}
+.nav .brand{display:flex;align-items:center;gap:10px}
+.lgo{width:auto;display:block}
+.nav .bt{font-weight:700;font-size:16px;letter-spacing:.2px}
 .nav a.lnk{font-size:14px;color:var(--ink);opacity:.82}
 .nav a.lnk:hover{opacity:1;color:var(--red)}
 .nav .sp{flex:1}
@@ -39,6 +41,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .pill-red:hover{background:var(--red-hover);transform:scale(1.02)}
 .pill-sm{padding:7px 16px;font-size:13.5px}
 @media(max-width:680px){.nav a.lnk{display:none}}
+@media(max-width:360px){.nav .bt{display:none}}
 
 /* ═══ hero ═══ */
 .hero{text-align:center;padding:84px 22px 30px;overflow:hidden}
@@ -83,9 +86,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .search{flex:1;min-width:220px;position:relative}
 .search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.4}
 .search input{width:100%;padding:12px 16px 12px 44px;border:none;border-radius:12px;font-size:15.5px;font-family:inherit;background:#fff;color:var(--ink)}
-.search input:focus{outline:none;box-shadow:0 0 0 3px rgba(198,33,39,.25)}
+.search input:focus{outline:none;box-shadow:0 0 0 3px rgba(184,67,79,.28)}
 .toolbar select{padding:12px 14px;border:none;border-radius:12px;font-size:14.5px;font-family:inherit;background:#fff;max-width:200px}
-.toolbar select:focus{outline:none;box-shadow:0 0 0 3px rgba(198,33,39,.25)}
+.toolbar select:focus{outline:none;box-shadow:0 0 0 3px rgba(184,67,79,.28)}
 .result-line{font-size:13.5px;color:var(--ink2);margin:4px 2px 18px}
 
 /* grid การ์ดสินค้า */
@@ -116,8 +119,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 @media(max-width:560px){.bgrid{grid-template-columns:repeat(3,1fr);gap:9px}}
 .btile{background:var(--bg2);border-radius:16px;padding:20px 10px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
 .btile:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(0,0,0,.08);background:#fff}
-.blogo{width:60px;height:60px;border-radius:14px;background:#fff;display:grid;place-items:center;font-weight:700;font-size:20px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.blogo img{width:100%;height:100%;object-fit:contain;padding:6px}
+.blogo{width:100%;height:50px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;padding:5px 8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.blogo img{width:100%;height:100%;object-fit:contain}
+.blogo .wm{font-weight:800;line-height:1;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;letter-spacing:.4px}
 .bn{font-size:13px;font-weight:600;line-height:1.3;min-height:2.6em;display:flex;align-items:center}
 .bc{font-size:11.5px;color:var(--ink2)}
 .clr{color:var(--red);font-weight:600;font-size:13px;padding:2px 8px;border-radius:99px;background:#fdecec}
@@ -126,7 +130,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══ dealer band ═══ */
 .dealer{background:#000;color:#f5f5f7;text-align:center;padding:88px 22px}
 .dealer h2{font-size:clamp(32px,5.6vw,58px);font-weight:700;letter-spacing:-.02em;line-height:1.12;margin-bottom:16px}
-.dealer h2 .grad{background:linear-gradient(92deg,#ff5f4d,var(--red) 55%,#ff8b3d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dealer h2 .grad{background:linear-gradient(92deg,#5d7fd6,var(--blue) 32%,var(--red) 78%,#d05563);-webkit-background-clip:text;background-clip:text;color:transparent}
 .dealer .sub{color:#a1a1a6;font-size:clamp(16px,2.2vw,20px);max-width:52ch;margin:0 auto 46px}
 .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 26px;max-width:960px;margin:0 auto 50px;text-align:center}
 @media(max-width:860px){.feat{grid-template-columns:repeat(2,1fr)}}
@@ -213,7 +217,13 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
 
 <nav class="nav">
   <div class="in">
-    <a class="brand" href="#top">BVJC<span>.</span></a>
+    <a class="brand" href="#top"><svg class="lgo" viewBox="0 0 1725.4 935.1" height="26" aria-hidden="true" focusable="false"><rect x="35.0" y="35.0" width="1655.5" height="97.4" fill="#B8434F"/>
+<rect x="35.0" y="802.8" width="1655.5" height="97.4" fill="#B8434F"/>
+<g fill="#3759AD">
+<path d="M69.86510578222655 759.066V652.1257534179688H125.8655330283203V283.0062465820313H69.86510578222655V176.06600000000003H351.8638240439453V283.0062465820313H295.8633967978516V437.8308315429688L458.3358699423828 283.0062465820313H416.2765437705078V176.06600000000003H692.9811946494141V283.0062465820313H641.3042842490235L441.9790584189453 473.3011684570313L441.6260921103516 416.59566308593753L660.2748347861328 652.1257534179688H711.6282283408203V759.066H420.0413753134766V652.1257534179688H462.1007014853516L295.8633967978516 469.94820214843753V652.1257534179688H351.8638240439453V759.066Z"/>
+<path d="M741.9442283408204 759.066V652.1257534179688H797.9446555869141V283.0062465820313H741.9442283408204V176.06600000000003H1023.9429466025391V283.0062465820313H967.9425193564454V652.1257534179688H1023.9429466025391V759.066Z"/>
+<path d="M1195.670811836914 759.066V652.1257534179688H1269.906407540039V283.0062465820313H1166.9635974814453V407.9477749023438H1054.258946602539V176.06600000000003H1655.5517322470703V407.9477749023438H1542.847081368164V283.0062465820313H1439.9042713095703V652.1257534179688H1514.1398670126953V759.066Z"/>
+</g></svg><span class="bt">บี วี เจ ซี กรุ๊ป</span></a>
     <span class="sp"></span>
     <a class="lnk" href="#brands">แบรนด์</a>
     <a class="lnk" href="#catalog">แคตตาล็อก</a>
@@ -283,7 +293,13 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
 <footer id="contact">
   <div class="in">
     <div class="row">
-      <div><b>บริษัท บี วี เจ ซี กรุ๊ป จำกัด</b><br>ผู้นำเข้าและจัดจำหน่ายเครื่องจักรการเกษตรและอุปกรณ์ครัวจากประเทศจีน</div>
+      <div><svg class="lgo" viewBox="0 0 1725.4 935.1" height="30" aria-hidden="true" focusable="false"><rect x="35.0" y="35.0" width="1655.5" height="97.4" fill="#B8434F"/>
+<rect x="35.0" y="802.8" width="1655.5" height="97.4" fill="#B8434F"/>
+<g fill="#3759AD">
+<path d="M69.86510578222655 759.066V652.1257534179688H125.8655330283203V283.0062465820313H69.86510578222655V176.06600000000003H351.8638240439453V283.0062465820313H295.8633967978516V437.8308315429688L458.3358699423828 283.0062465820313H416.2765437705078V176.06600000000003H692.9811946494141V283.0062465820313H641.3042842490235L441.9790584189453 473.3011684570313L441.6260921103516 416.59566308593753L660.2748347861328 652.1257534179688H711.6282283408203V759.066H420.0413753134766V652.1257534179688H462.1007014853516L295.8633967978516 469.94820214843753V652.1257534179688H351.8638240439453V759.066Z"/>
+<path d="M741.9442283408204 759.066V652.1257534179688H797.9446555869141V283.0062465820313H741.9442283408204V176.06600000000003H1023.9429466025391V283.0062465820313H967.9425193564454V652.1257534179688H1023.9429466025391V759.066Z"/>
+<path d="M1195.670811836914 759.066V652.1257534179688H1269.906407540039V283.0062465820313H1166.9635974814453V407.9477749023438H1054.258946602539V176.06600000000003H1655.5517322470703V407.9477749023438H1542.847081368164V283.0062465820313H1439.9042713095703V652.1257534179688H1514.1398670126953V759.066Z"/>
+</g></svg><br style="line-height:2.2"><b>บริษัท บี วี เจ ซี กรุ๊ป จำกัด</b><br>ผู้นำเข้าและจัดจำหน่ายเครื่องจักรการเกษตรและอุปกรณ์ครัวจากประเทศจีน</div>
       <div class="tr-md">LINE: <a href="#" onclick="lineDealer();return false" id="lineTxt"></a><br>โทร: <a href="#" id="telA"></a></div>
     </div>
   </div>
@@ -501,23 +517,29 @@ document.querySelectorAll(".rv").forEach(el=>io.observe(el));
 /* ── แบรนด์ ── */
 let brandLogo = {}, brandsExpanded = false;
 const BSHOW = 18;
-const MONO_PAL = [["#FDECEC","#C62127"],["#E8F0FE","#2456B3"],["#E7F6EC","#1E7A46"],["#FFF3DF","#B26A09"],["#F3ECFD","#7A3DB8"],["#E6F7F9","#0E7490"],["#FDEFE7","#C2410C"],["#EFEFF4","#4B4B52"]];
-function monoOf(name){
+const WM_PAL = ["#B8434F","#1d1d1f","#3759AD","#1E7A46","#B26A09","#7A3DB8","#0E7490","#C2410C"];
+function wmOf(name){
   let h=0; for(const ch of name) h=(h*31+ch.codePointAt(0))>>>0;
-  const [bg,fg]=MONO_PAL[h%MONO_PAL.length];
-  const init=[...String(name).replace(/[()\s.]/g,"")].slice(0,2).join("").toUpperCase();
-  return {bg,fg,init};
+  const c = WM_PAL[h%WM_PAL.length];
+  const styles = [
+    `color:${c}`,
+    `color:${c};font-style:italic`,
+    `color:#fff;background:${c};padding:5px 11px;border-radius:8px`,
+    `color:${c};border-bottom:3px solid ${c};padding-bottom:3px`
+  ];
+  return styles[(h>>>4)%styles.length];
 }
 function logoHtml(b,i){
   const lg = brandLogo[b];
   if(lg) return `<span class="blogo"><img loading="lazy" src="${esc(lg)}" alt="" onerror="brokeLogo(this,${i})"></span>`;
-  const m = monoOf(b);
-  return `<span class="blogo" style="background:${m.bg};color:${m.fg}">${esc(m.init)}</span>`;
+  const disp = String(b).replace(/\s*\(.*\)\s*$/,"");
+  const n = [...disp].length;
+  const fs = n<=4?19 : n<=6?17 : n<=9?14.5 : n<=12?12.5 : 11;
+  return `<span class="blogo"><span class="wm" style="font-size:${fs}px;${wmOf(b)}">${esc(disp)}</span></span>`;
 }
 function brokeLogo(img,i){
-  const m = monoOf(BRANDS[i]||"?");
   const sp = img.closest(".blogo");
-  sp.style.background=m.bg; sp.style.color=m.fg; sp.textContent=m.init;
+  if(sp) sp.outerHTML = logoHtml(BRANDS[i]||"?", i);
 }
 function buildBrands(){
   const list = BRANDS.map((b,i)=>({b,i})).filter(x=>!x.b.includes("ไม่ระบุ"));
