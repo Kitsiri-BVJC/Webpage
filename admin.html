@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>หลังบ้าน — บี วี เจ ซี กรุ๊ป</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201725.4%20935.1%22%3E%0A%3Crect%20x%3D%2235.0%22%20y%3D%2235.0%22%20width%3D%221655.5%22%20height%3D%2297.4%22%20fill%3D%22%23B8434F%22%2F%3E%0A%3Crect%20x%3D%2235.0%22%20y%3D%22802.8%22%20width%3D%221655.5%22%20height%3D%2297.4%22%20fill%3D%22%23B8434F%22%2F%3E%0A%3Cg%20fill%3D%22%233759AD%22%3E%0A%3Cpath%20d%3D%22M69.86510578222655%20759.066V652.1257534179688H125.8655330283203V283.0062465820313H69.86510578222655V176.06600000000003H351.8638240439453V283.0062465820313H295.8633967978516V437.8308315429688L458.3358699423828%20283.0062465820313H416.2765437705078V176.06600000000003H692.9811946494141V283.0062465820313H641.3042842490235L441.9790584189453%20473.3011684570313L441.6260921103516%20416.59566308593753L660.2748347861328%20652.1257534179688H711.6282283408203V759.066H420.0413753134766V652.1257534179688H462.1007014853516L295.8633967978516%20469.94820214843753V652.1257534179688H351.8638240439453V759.066Z%22%2F%3E%0A%3Cpath%20d%3D%22M741.9442283408204%20759.066V652.1257534179688H797.9446555869141V283.0062465820313H741.9442283408204V176.06600000000003H1023.9429466025391V283.0062465820313H967.9425193564454V652.1257534179688H1023.9429466025391V759.066Z%22%2F%3E%0A%3Cpath%20d%3D%22M1195.670811836914%20759.066V652.1257534179688H1269.906407540039V283.0062465820313H1166.9635974814453V407.9477749023438H1054.258946602539V176.06600000000003H1655.5517322470703V407.9477749023438H1542.847081368164V283.0062465820313H1439.9042713095703V652.1257534179688H1514.1398670126953V759.066Z%22%2F%3E%0A%3C%2Fg%3E%3C%2Fsvg%3E">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--red:#C62127;--red-press:#A21B20;--steel:#22252B;--steel-soft:#2C3038;--paper:#F4F3EF;--rule:#E2E0D9;--ink:#23252A;--ink2:#6B6E76;--label:#F2B807;--ok:#1B9E4B}
+:root{--red:#B8434F;--red-press:#9d3743;--blue:#3759AD;--steel:#22252B;--steel-soft:#2C3038;--paper:#F4F3EF;--rule:#E2E0D9;--ink:#23252A;--ink2:#6B6E76;--label:#F2B807;--ok:#1B9E4B}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Anuphan',sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
 button{font-family:inherit;cursor:pointer}
@@ -21,7 +22,7 @@ input,select{font-family:inherit;font-size:15px}
 /* login */
 .login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:var(--steel)}
 .login{background:#fff;border-radius:14px;padding:34px 30px;width:min(400px,100%);border-top:5px solid var(--red)}
-.login .mark{width:52px;height:52px;background:var(--red);color:#fff;display:grid;place-items:center;font-family:'Chakra Petch',sans-serif;font-weight:700;border-radius:8px;margin-bottom:14px}
+.login .mark-l{margin-bottom:16px}.login .mark-l svg{display:block;width:auto}
 .login h1{font-family:'Chakra Petch',sans-serif;font-size:21px;margin-bottom:2px}
 .login p{color:var(--ink2);font-size:14px;margin-bottom:20px}
 .login label{display:block;font-size:13.5px;font-weight:600;margin:12px 0 5px}
@@ -34,7 +35,7 @@ input,select{font-family:inherit;font-size:15px}
 .topbar{position:sticky;top:0;z-index:40;background:var(--steel);color:#fff;border-bottom:3px solid var(--red)}
 .topbar .in{max-width:1240px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:9px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:17px}
-.logo .mark{width:30px;height:30px;background:var(--red);display:grid;place-items:center;font-size:11px;border-radius:4px}
+.logo .mark2{background:#fff;border-radius:6px;padding:4px 8px;display:grid;place-items:center}.logo .mark2 svg{display:block;width:auto}
 .logo small{font-size:11px;color:var(--label);letter-spacing:2px;display:block;font-weight:600}
 .topbar .sp{margin-left:auto;display:flex;gap:8px;align-items:center}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 16px;border-radius:8px;font-weight:600;font-size:14.5px;border:none}
@@ -136,7 +137,13 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
 <!-- ── หน้าล็อกอิน ── -->
 <div class="login-wrap" id="loginView">
   <form class="login" onsubmit="doLogin(event)">
-    <div class="mark">BVJC</div>
+    <div class="mark-l"><svg class="" viewBox="0 0 1725.4 935.1" height="40" aria-hidden="true" focusable="false"><rect x="35.0" y="35.0" width="1655.5" height="97.4" fill="#B8434F"/>
+<rect x="35.0" y="802.8" width="1655.5" height="97.4" fill="#B8434F"/>
+<g fill="#3759AD">
+<path d="M69.86510578222655 759.066V652.1257534179688H125.8655330283203V283.0062465820313H69.86510578222655V176.06600000000003H351.8638240439453V283.0062465820313H295.8633967978516V437.8308315429688L458.3358699423828 283.0062465820313H416.2765437705078V176.06600000000003H692.9811946494141V283.0062465820313H641.3042842490235L441.9790584189453 473.3011684570313L441.6260921103516 416.59566308593753L660.2748347861328 652.1257534179688H711.6282283408203V759.066H420.0413753134766V652.1257534179688H462.1007014853516L295.8633967978516 469.94820214843753V652.1257534179688H351.8638240439453V759.066Z"/>
+<path d="M741.9442283408204 759.066V652.1257534179688H797.9446555869141V283.0062465820313H741.9442283408204V176.06600000000003H1023.9429466025391V283.0062465820313H967.9425193564454V652.1257534179688H1023.9429466025391V759.066Z"/>
+<path d="M1195.670811836914 759.066V652.1257534179688H1269.906407540039V283.0062465820313H1166.9635974814453V407.9477749023438H1054.258946602539V176.06600000000003H1655.5517322470703V407.9477749023438H1542.847081368164V283.0062465820313H1439.9042713095703V652.1257534179688H1514.1398670126953V759.066Z"/>
+</g></svg></div>
     <h1>ระบบหลังบ้าน</h1>
     <p>บริษัท บี วี เจ ซี กรุ๊ป จำกัด — จัดการแคตตาล็อกสินค้า</p>
     <label for="em">อีเมล</label>
@@ -152,7 +159,13 @@ input,select{font-size:16px}                 /* กัน iOS ซูมอัต
 <div id="appView" style="display:none">
   <header class="topbar">
     <div class="in">
-      <div class="logo"><span class="mark">BVJC</span><span>บี วี เจ ซี กรุ๊ป<small>ADMIN</small></span></div>
+      <div class="logo"><span class="mark2"><svg class="" viewBox="0 0 1725.4 935.1" height="17" aria-hidden="true" focusable="false"><rect x="35.0" y="35.0" width="1655.5" height="97.4" fill="#B8434F"/>
+<rect x="35.0" y="802.8" width="1655.5" height="97.4" fill="#B8434F"/>
+<g fill="#3759AD">
+<path d="M69.86510578222655 759.066V652.1257534179688H125.8655330283203V283.0062465820313H69.86510578222655V176.06600000000003H351.8638240439453V283.0062465820313H295.8633967978516V437.8308315429688L458.3358699423828 283.0062465820313H416.2765437705078V176.06600000000003H692.9811946494141V283.0062465820313H641.3042842490235L441.9790584189453 473.3011684570313L441.6260921103516 416.59566308593753L660.2748347861328 652.1257534179688H711.6282283408203V759.066H420.0413753134766V652.1257534179688H462.1007014853516L295.8633967978516 469.94820214843753V652.1257534179688H351.8638240439453V759.066Z"/>
+<path d="M741.9442283408204 759.066V652.1257534179688H797.9446555869141V283.0062465820313H741.9442283408204V176.06600000000003H1023.9429466025391V283.0062465820313H967.9425193564454V652.1257534179688H1023.9429466025391V759.066Z"/>
+<path d="M1195.670811836914 759.066V652.1257534179688H1269.906407540039V283.0062465820313H1166.9635974814453V407.9477749023438H1054.258946602539V176.06600000000003H1655.5517322470703V407.9477749023438H1542.847081368164V283.0062465820313H1439.9042713095703V652.1257534179688H1514.1398670126953V759.066Z"/>
+</g></svg></span><span>บี วี เจ ซี กรุ๊ป<small>ADMIN</small></span></div>
       <div class="sp">
         <button class="btn btn-steel" onclick="openBrands()">🏷 โลโก้แบรนด์</button>
         <button class="btn btn-steel" onclick="openSettings()">⚙ ตั้งค่าเว็บ</button>
@@ -468,6 +481,17 @@ async function brPick(input){
   const f = input.files[0]; if(!f || !brTarget) return;
   toast("กำลังอัพโหลดโลโก้...");
   try{
+    if(f.type === "image/svg+xml"){
+      const path = `b${brTarget}.svg`;
+      const { error:ue } = await sb.storage.from(BUCKET).upload(path, f, { upsert:true, contentType:"image/svg+xml" });
+      if(ue) throw ue;
+      const { data:{ publicUrl } } = sb.storage.from(BUCKET).getPublicUrl(path);
+      const url = publicUrl + "?v=" + Date.now();
+      const { error:e2 } = await sb.from("brands").update({ logo_url:url }).eq("id", brTarget);
+      if(e2) throw e2;
+      const r = brRows.find(x=>x.id===brTarget); if(r) r.logo_url = url;
+      renderBrands(); toast("อัพโหลดโลโก้แล้ว ✓"); return;
+    }
     const img = await createImageBitmap(f, { imageOrientation:"from-image" });
     const sc = Math.min(1, 600/Math.max(img.width,img.height));
     const c = document.createElement("canvas");
@@ -488,7 +512,7 @@ async function brPick(input){
 async function brDelLogo(id){
   if(!confirm("ลบโลโก้แบรนด์นี้?")) return;
   try{
-    await sb.storage.from(BUCKET).remove([`b${id}.png`]);
+    await sb.storage.from(BUCKET).remove([`b${id}.png`,`b${id}.svg`]);
     const { error } = await sb.from("brands").update({ logo_url:null }).eq("id", id);
     if(error) throw error;
     const r = brRows.find(x=>x.id===id); if(r) r.logo_url = null;
