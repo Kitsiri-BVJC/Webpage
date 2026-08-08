@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>บี วี เจ ซี กรุ๊ป — แคตตาล็อกสินค้านำเข้าจากจีน 892 รายการ</title>
+<meta name="description" content="ตัวแทนนำเข้าเครื่องจักรการเกษตร ปั้มน้ำ เครื่องครัว จากโรงงานจีน สินค้าหลัก 892 รายการ อะไหล่กว่า 5,000 รายการ เปิดรับตัวแทนจำหน่ายทั่วประเทศ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --red:#C62127; --red-press:#A21B20;
+  --steel:#22252B; --steel-soft:#2C3038;
+  --paper:#F4F3EF; --plate:#ECEBE5; --rule:#E2E0D9;
+  --ink:#23252A; --ink-2:#6B6E76;
+  --label:#F2B807;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Anuphan',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}
+.chakra{font-family:'Chakra Petch',sans-serif}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:4px}
+img{max-width:100%}
+
+/* ── topbar ── */
+.topbar{position:sticky;top:0;z-index:50;background:var(--steel);color:#fff;border-bottom:3px solid var(--red)}
+.topbar .in{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:19px;letter-spacing:.5px}
+.logo .mark{width:34px;height:34px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700;border-radius:4px}
+.topnav{margin-left:auto;display:flex;gap:22px;font-size:15px;font-weight:500}
+.topnav a{opacity:.85}.topnav a:hover{opacity:1;color:var(--label)}
+.top-cta{background:var(--red);color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;font-size:14.5px}
+.top-cta:hover{background:var(--red-press)}
+@media(max-width:760px){.topnav{display:none}}
+
+/* ── hero ── */
+.hero{background:var(--steel);color:#fff;overflow:hidden;position:relative}
+.hero .in{max-width:1180px;margin:0 auto;padding:58px 20px 46px;display:grid;grid-template-columns:1.5fr 1fr;gap:30px;align-items:center}
+.eyebrow{font-family:'Chakra Petch',sans-serif;font-size:13.5px;letter-spacing:2.5px;color:var(--label);font-weight:600;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4.4vw,50px);line-height:1.18;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--label)}
+.hero p.lead{font-size:17px;color:#C9CBD1;max-width:52ch;margin-bottom:26px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:8px;font-weight:600;font-size:16px;border:none}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-press)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid #4A4E57}.btn-ghost:hover{border-color:#fff}
+/* ตราประทับนำเข้า — signature */
+.stampwrap{display:grid;place-items:center}
+.stamp{width:min(240px,60vw);aspect-ratio:1;border:4px solid var(--red);border-radius:14px;position:relative;transform:rotate(-7deg);
+  display:grid;place-items:center;text-align:center;padding:18px;color:var(--red);
+  background:
+    repeating-linear-gradient(45deg,rgba(198,33,39,.05) 0 8px,transparent 8px 16px);}
+.stamp::before{content:"";position:absolute;inset:7px;border:1.5px solid var(--red);border-radius:9px}
+.stamp .t1{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:24px;line-height:1.25}
+.stamp .t2{font-size:13.5px;font-weight:600;margin-top:8px;letter-spacing:1px}
+.stamp .t3{font-family:'Chakra Petch',sans-serif;font-size:11px;letter-spacing:2px;margin-top:10px;opacity:.85}
+@media(max-width:860px){.hero .in{grid-template-columns:1fr;padding:44px 20px 38px}.stampwrap{order:-1}.stamp{width:170px;transform:rotate(-6deg)}.stamp .t1{font-size:18px}}
+
+/* ── stats ── */
+.stats{background:var(--steel-soft);border-top:1px solid #383C45}
+.stats .in{max-width:1180px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:16px 8px;text-align:center;color:#fff;border-left:1px solid #383C45}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-family:'Chakra Petch',sans-serif;font-size:clamp(20px,2.6vw,30px);color:var(--label)}
+.stat span{font-size:13px;color:#B9BCC3}
+@media(max-width:640px){.stats .in{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:none}}
+
+/* ── brand marquee ── */
+.marquee{background:#fff;border-bottom:1px solid var(--rule);overflow:hidden;white-space:nowrap}
+.marquee .track{display:inline-block;padding:11px 0;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:14px;letter-spacing:1px;color:var(--ink-2);animation:slide 60s linear infinite}
+.marquee .track b{color:var(--red)}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.marquee .track{animation:none}html{scroll-behavior:auto}}
+
+/* ── catalog ── */
+.catalog{max-width:1180px;margin:0 auto;padding:44px 20px 30px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.sec-head h2{font-family:'Chakra Petch',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:700}
+.sec-head .tag{font-family:'Chakra Petch',sans-serif;font-size:12px;letter-spacing:2px;color:var(--red);font-weight:600;border:1.5px solid var(--red);padding:3px 10px;border-radius:99px}
+.sec-sub{color:var(--ink-2);margin-bottom:20px;font-size:15px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.search{flex:1;min-width:230px;position:relative}
+.search input{width:100%;padding:12px 14px 12px 42px;border:1.5px solid var(--rule);border-radius:8px;font-size:15.5px;font-family:inherit;background:#fff}
+.search input:focus{border-color:var(--red);outline:none}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.45}
+.controls select{padding:12px 14px;border:1.5px solid var(--rule);border-radius:8px;font-size:15px;font-family:inherit;background:#fff;max-width:100%}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:thin}
+.chip{flex:0 0 auto;padding:8px 14px;border-radius:99px;border:1.5px solid var(--rule);background:#fff;font-size:14px;font-weight:500;color:var(--ink)}
+.chip small{color:var(--ink-2);font-weight:400}
+.chip.on{background:var(--steel);border-color:var(--steel);color:#fff}
+.chip.on small{color:var(--label)}
+.result-line{font-size:14px;color:var(--ink-2);margin:2px 0 16px}
+.result-line b{color:var(--red)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+.card{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;text-align:left;display:flex;flex-direction:column;padding:0;animation:up .35s ease both}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.card{animation:none}}
+.card:hover{border-color:var(--red);box-shadow:0 4px 14px rgba(35,37,42,.08)}
+.plate{position:relative;aspect-ratio:4/3;background:var(--plate) repeating-linear-gradient(45deg,rgba(35,37,42,.03) 0 10px,transparent 10px 20px);display:grid;place-items:center}
+.plate .emo{font-size:44px;filter:grayscale(.15)}
+.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#fff}
+.card .body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:5px;flex:1}
+.code{font-family:'Chakra Petch',sans-serif;font-size:12px;letter-spacing:.8px;color:var(--ink-2)}
+.name{font-size:14.5px;font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+.meta{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-size:11.5px;padding:2.5px 9px;border-radius:99px;background:var(--paper);border:1px solid var(--rule);color:var(--ink-2)}
+.pill.brand{background:#FBEDED;border-color:#F0C9CB;color:var(--red);font-weight:600}
+.more-wrap{text-align:center;margin:26px 0 6px}
+.more{background:var(--steel);color:#fff;border:none;padding:13px 30px;border-radius:8px;font-size:15.5px;font-weight:600}
+.more:hover{background:#000}
+.empty{padding:60px 20px;text-align:center;color:var(--ink-2)}
+.empty b{display:block;font-size:17px;color:var(--ink);margin-bottom:6px}
+
+/* ── dealer ── */
+.dealer{background:var(--steel);color:#fff;margin-top:40px;position:relative;overflow:hidden}
+.dealer::after{content:"นำเข้าโดยตรง";position:absolute;right:-30px;bottom:-38px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:130px;color:rgba(198,33,39,.16);transform:rotate(-8deg);pointer-events:none;white-space:nowrap}
+.dealer .in{max-width:1180px;margin:0 auto;padding:52px 20px;position:relative;z-index:1}
+.dealer .eyebrow{color:var(--label)}
+.dealer h2{font-family:'Chakra Petch',sans-serif;font-size:clamp(24px,3.4vw,36px);font-weight:700;margin-bottom:10px}
+.dealer p.lead{color:#C9CBD1;max-width:62ch;margin-bottom:26px;font-size:16.5px}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+@media(max-width:900px){.why{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.why{grid-template-columns:1fr}}
+.why div{background:var(--steel-soft);border:1px solid #383C45;border-left:3px solid var(--red);border-radius:8px;padding:16px}
+.why b{display:block;font-size:15.5px;margin-bottom:5px}
+.why span{font-size:13.5px;color:#B9BCC3}
+.dealer .btn-red{font-size:17px;padding:15px 30px}
+.dealer .note{font-size:13.5px;color:#8F929A;margin-top:12px}
+
+/* ── footer ── */
+footer{background:#191B20;color:#B9BCC3;font-size:14px}
+footer .in{max-width:1180px;margin:0 auto;padding:34px 20px;display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+footer b{color:#fff;font-family:'Chakra Petch',sans-serif;font-size:15px}
+footer .ln{color:var(--label);font-weight:600}
+
+/* ── modal ── */
+.overlay{position:fixed;inset:0;background:rgba(20,21,25,.62);display:none;align-items:flex-end;justify-content:center;z-index:100;padding:0}
+.overlay.open{display:flex}
+.modal{background:#fff;width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;animation:pop .22s ease}
+@media(min-width:600px){.overlay{align-items:center;padding:20px}.modal{border-radius:14px}}
+@keyframes pop{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.modal{animation:none}}
+.modal .plate{aspect-ratio:16/9}
+.modal .plate .emo{font-size:66px}
+.m-close{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.92);font-size:19px;box-shadow:0 1px 6px rgba(0,0,0,.2)}
+.m-body{padding:18px 20px 24px}
+.m-body .code{font-size:13px}
+.m-body h3{font-size:19px;font-weight:700;line-height:1.4;margin:4px 0 14px}
+.m-rows{border-top:1px solid var(--rule);margin-bottom:18px}
+.m-rows div{display:flex;justify-content:space-between;gap:14px;padding:9px 2px;border-bottom:1px solid var(--rule);font-size:14.5px}
+.m-rows span{color:var(--ink-2)}
+.m-rows b{font-weight:600;text-align:right}
+.m-cta{display:flex;gap:10px;flex-wrap:wrap}
+.m-cta .btn{flex:1;justify-content:center;min-width:150px}
+.btn-line{background:#06C755;color:#fff}.btn-line:hover{background:#05A548}
+.btn-steel{background:var(--steel);color:#fff}.btn-steel:hover{background:#000}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="in">
+    <a class="logo" href="#top"><span class="mark">BVJC</span><span>บี วี เจ ซี กรุ๊ป</span></a>
+    <nav class="topnav">
+      <a href="#catalog">แคตตาล็อกสินค้า</a>
+      <a href="#dealer">สมัครตัวแทน</a>
+      <a href="#contact">ติดต่อเรา</a>
+    </nav>
+    <button class="top-cta" onclick="lineDealer()">คุยทาง LINE</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="in">
+    <div>
+      <div class="eyebrow">บริษัท บี วี เจ ซี กรุ๊ป จำกัด</div>
+      <h1>เครื่องจักรการเกษตร<br>และอุปกรณ์ครัว <em>นำเข้าตรง</em><br>จากโรงงานจีน</h1>
+      <p class="lead">ผู้นำเข้าและจัดจำหน่ายเครื่องพ่นยา ปั้มน้ำ เครื่องตัดหญ้า เครื่องแปรรูปอาหาร และอุปกรณ์ร้านอาหาร พร้อมสต๊อกอะไหล่กว่า 5,000 รายการ — เปิดรับตัวแทนจำหน่ายทั่วประเทศ</p>
+      <div class="hero-cta">
+        <a class="btn btn-red" href="#catalog">เปิดแคตตาล็อกสินค้า</a>
+        <a class="btn btn-ghost" href="#dealer">สมัครเป็นตัวแทน</a>
+      </div>
+    </div>
+    <div class="stampwrap">
+      <div class="stamp" aria-hidden="true">
+        <div>
+          <div class="t1">นำเข้า<br>โดยตรง</div>
+          <div class="t2">จากโรงงานผู้ผลิต ประเทศจีน</div>
+          <div class="t3">BVJC GROUP CO., LTD.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="in">
+      <div class="stat"><b id="stP">—</b><span>สินค้าหลัก</span></div>
+      <div class="stat"><b id="stC">—</b><span>หมวดหมู่</span></div>
+      <div class="stat"><b id="stB">—</b><span>ยี่ห้อ</span></div>
+      <div class="stat"><b>5,000+</b><span>รายการอะไหล่</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="marq"></div></div>
+
+<main class="catalog" id="catalog">
+  <div class="sec-head"><h2>แคตตาล็อกสินค้า</h2><span class="tag">CATALOG</span></div>
+  <p class="sec-sub">ค้นหาจากชื่อสินค้า รหัส หรือยี่ห้อ — แตะที่สินค้าเพื่อดูรายละเอียดและสอบถามราคาตัวแทน</p>
+
+  <div class="controls">
+    <div class="search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="ค้นหาสินค้า เช่น เครื่องพ่นยา, KS-20A, ฮิตาชิ" aria-label="ค้นหาสินค้า">
+    </div>
+    <select id="brandSel" aria-label="เลือกยี่ห้อ"><option value="-1">ทุกยี่ห้อ</option></select>
+  </div>
+  <div class="chips" id="chips" role="tablist" aria-label="หมวดหมู่สินค้า"></div>
+  <p class="result-line" id="resultLine"></p>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="loadState"><b>กำลังโหลดแคตตาล็อก...</b>ดึงข้อมูลสินค้าล่าสุดจากระบบ</div>
+  <div class="empty" id="empty" style="display:none"><b>ไม่พบสินค้าที่ค้นหา</b>ลองพิมพ์คำสั้นลง หรือเลือก "ทั้งหมด" แล้วค้นใหม่อีกครั้ง</div>
+  <div class="more-wrap"><button class="more" id="moreBtn" onclick="showMore()">แสดงเพิ่ม</button></div>
+</main>
+
+<section class="dealer" id="dealer">
+  <div class="in">
+    <div class="eyebrow">เปิดรับตัวแทนจำหน่ายทั่วประเทศ</div>
+    <h2>ขายของแน่น สต๊อกไม่ขาด<br>เพราะเรานำเข้าเองถึงโรงงาน</h2>
+    <p class="lead">ร้านเครื่องมือการเกษตร ร้านอุปกรณ์ครัว ร้านฮาร์ดแวร์ หรือผู้สนใจเริ่มธุรกิจ — รับสินค้าราคาตัวแทนจากผู้นำเข้าโดยตรง ไม่ผ่านคนกลาง</p>
+    <div class="why">
+      <div><b>นำเข้าตรงจากโรงงาน</b><span>ราคาต้นทางจากผู้ผลิตในจีน ไม่บวกผ่านหลายทอด</span></div>
+      <div><b>สินค้า 892 รายการ 22 หมวด</b><span>จัดหน้าร้านได้ครบทั้งเกษตร ปั้มน้ำ และเครื่องครัว</span></div>
+      <div><b>อะไหล่กว่า 5,000 รายการ</b><span>ขายแล้วดูแลลูกค้าต่อได้ มีอะไหล่ซ่อมรองรับ</span></div>
+      <div><b>คลังสินค้าในไทย พร้อมส่ง</b><span>สั่งจากสต๊อกจริง จัดส่งได้ทุกจังหวัด</span></div>
+    </div>
+    <button class="btn btn-red" onclick="lineDealer()">สมัครตัวแทน / ขอราคาส่ง ทาง LINE</button>
+    <p class="note">เงื่อนไขการเป็นตัวแทนและราคาขายส่ง สอบถามได้โดยตรง ทีมงานตอบไว</p>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="in">
+    <div>
+      <b>บริษัท บี วี เจ ซี กรุ๊ป จำกัด</b><br>
+      ผู้นำเข้าและจัดจำหน่ายเครื่องจักรการเกษตรและอุปกรณ์ครัวจากประเทศจีน
+    </div>
+    <div>
+      LINE: <a class="ln" href="#" onclick="lineDealer();return false" id="lineTxt"></a><br>
+      โทร: <a class="ln" href="#" id="telA"></a>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mName">
+    <div class="plate" style="position:relative">
+      <span class="emo" id="mEmo"></span>
+      <img id="mImg" alt="" style="display:none" onerror="this.style.display='none'">
+      <button class="m-close" onclick="closeModal()" aria-label="ปิด">✕</button>
+    </div>
+    <div class="m-body">
+      <div class="code" id="mCode"></div>
+      <h3 id="mName"></h3>
+      <div class="m-rows">
+        <div><span>หมวดหมู่</span><b id="mCat"></b></div>
+        <div><span>ยี่ห้อ</span><b id="mBrand"></b></div>
+        <div><span>หน่วยขาย</span><b id="mUnit"></b></div>
+      </div>
+      <div class="m-cta">
+        <button class="btn btn-line" id="mLine">สอบถามราคาทาง LINE</button>
+        <a class="btn btn-steel" id="mTel">โทรสอบถาม</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════ ตั้งค่า — ใส่ค่าจากโปรเจกต์ Supabase (ค่าเดียวกับ admin.html) ═══════════ */
+const SUPABASE_URL      = "https://ใส่โปรเจกต์.supabase.co";   // ★ Settings → API → Project URL
+const SUPABASE_ANON_KEY = "ใส่_ANON_KEY";                      // ★ Settings → API → anon public key
+/* ══════════════════════════════════════════════════════════════════════════════ */
+
+let LINE_OA_ID = "@bvjcgroup", TEL = "020000000", TEL_SHOW = "02-000-0000";
+let CATS = [], BRANDS = [], UNITS = [], P = []; /* [code,name,ci,bi,ui,imgUrl] */
+let catCount = [], brandCount = [];
+const state = { q:"", cat:-1, brand:-1, shown:48 };
+const BATCH = 48;
+const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const EMO = {"เครื่องแปรรูปอาหาร":"🥩","ปั้มน้ำไฟฟ้า":"💧","อาหาร/เครื่องปรุง":"🍜","เครื่องตัดหญ้า/งานสวน":"🌿","เครื่องพ่นยา":"🌾","ปั้มน้ำติดเครื่องยนต์":"💦","ปั้มพ่นยา/ปั้มแรงดันสูง":"🚿","มอเตอร์ไฟฟ้า":"⚡","ไอศกรีม/น้ำแข็ง":"🍦","เครื่องยนต์":"⚙️","กรรไกรแต่งกิ่ง":"✂️","เตา/อุปกรณ์ร้านอาหาร":"🔥","เครื่องเป่าลม":"💨","เครื่องมือช่าง/ก่อสร้าง":"🔨","เครื่องแพ็คกิ้ง/รีดถุง":"📦","ไดนาโม/เครื่องปั่นไฟ":"🔋","เลื่อยโซ่/เลื่อยแต่งกิ่ง":"🪚","เครื่องมือการเกษตรอื่นๆ":"🚜","ปั้มชัก":"🚰","เครื่องใช้ไฟฟ้า":"🔌","เครื่องชั่ง":"⚖️","ยานยนต์ไฟฟ้า":"🛵"};
+const emoOf = c => EMO[c] || "📦";
+
+async function init(){
+  const ls = document.getElementById("loadState");
+  if(SUPABASE_URL.includes("ใส่")){
+    ls.innerHTML = "<b>ยังไม่ได้เชื่อมต่อฐานข้อมูล</b>เปิดไฟล์นี้แล้วใส่ SUPABASE_URL และ ANON_KEY ที่บรรทัดบนสุดของ &lt;script&gt; ก่อนครับ";
+    return;
+  }
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const [stRes, pRes] = await Promise.all([
+    sb.from("site_settings").select("*"),
+    sb.from("products").select("code,name,category,brand,unit,image_url").eq("is_active", true).range(0, 4999)
+  ]);
+  if(pRes.error){ ls.innerHTML = "<b>โหลดข้อมูลไม่สำเร็จ</b>" + esc(pRes.error.message); return; }
+
+  const st = Object.fromEntries((stRes.data||[]).map(r=>[r.key, r.value]));
+  if(st.line_oa) LINE_OA_ID = st.line_oa;
+  if(st.tel) TEL = st.tel;
+  if(st.tel_show) TEL_SHOW = st.tel_show;
+  document.getElementById("lineTxt").textContent = LINE_OA_ID;
+  const telA = document.getElementById("telA"); telA.textContent = TEL_SHOW; telA.href = "tel:"+TEL;
+
+  const rows = pRes.data || [];
+  const cCnt = new Map(), bCnt = new Map(), uIdx = new Map();
+  rows.forEach(r=>{ cCnt.set(r.category,(cCnt.get(r.category)||0)+1); bCnt.set(r.brand,(bCnt.get(r.brand)||0)+1); });
+  CATS = [...cCnt.keys()].sort((a,b)=>cCnt.get(b)-cCnt.get(a));
+  BRANDS = [...bCnt.keys()].sort((a,b)=>{
+    const ax=a.includes("ไม่ระบุ")?1:0, bx=b.includes("ไม่ระบุ")?1:0;
+    return ax-bx || bCnt.get(b)-bCnt.get(a);
+  });
+  const ci = new Map(CATS.map((c,i)=>[c,i])), bi = new Map(BRANDS.map((b,i)=>[b,i]));
+  UNITS = [];
+  rows.forEach(r=>{ if(!uIdx.has(r.unit)){ uIdx.set(r.unit, UNITS.length); UNITS.push(r.unit); } });
+  P = rows.map(r=>[r.code, r.name, ci.get(r.category), bi.get(r.brand), uIdx.get(r.unit), r.image_url||""]);
+  P.sort((a,b)=> a[2]-b[2] || a[1].localeCompare(b[1],"th"));
+  catCount = CATS.map((_,i)=>P.filter(p=>p[2]===i).length);
+  brandCount = BRANDS.map((_,i)=>P.filter(p=>p[3]===i).length);
+
+  document.getElementById("stP").textContent = P.length.toLocaleString();
+  document.getElementById("stC").textContent = CATS.length;
+  document.getElementById("stB").textContent = BRANDS.filter(b=>!b.includes("ไม่ระบุ")).length + "+";
+
+  const bNames = BRANDS.filter(b=>!b.includes("ไม่ระบุ"));
+  const seq = bNames.map(b=>`<b>◆</b> ${esc(b)} `).join(" ");
+  document.getElementById("marq").innerHTML = seq + seq;
+
+  const bs = document.getElementById("brandSel");
+  BRANDS.forEach((b,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=`${b} (${brandCount[i]})`; bs.appendChild(o); });
+
+  ls.style.display = "none";
+  buildChips(); render();
+}
+
+const chipsEl = document.getElementById("chips");
+function buildChips(){
+  let h = `<button class="chip ${state.cat===-1?"on":""}" onclick="setCat(-1)">ทั้งหมด <small>(${P.length})</small></button>`;
+  CATS.forEach((c,i)=>{ h += `<button class="chip ${state.cat===i?"on":""}" onclick="setCat(${i})">${emoOf(c)} ${esc(c)} <small>(${catCount[i]})</small></button>`; });
+  chipsEl.innerHTML = h;
+}
+document.getElementById("brandSel").onchange = e=>{ state.brand=+e.target.value; state.shown=BATCH; render(); };
+document.getElementById("q").oninput = e=>{ state.q=e.target.value.trim().toLowerCase(); state.shown=BATCH; render(); };
+function setCat(i){ state.cat=i; state.shown=BATCH; buildChips(); render(); document.getElementById("grid").scrollIntoView({block:"nearest"}); }
+
+function filtered(){
+  return P.map((p,idx)=>[p,idx]).filter(([p])=>{
+    if(state.cat>-1 && p[2]!==state.cat) return false;
+    if(state.brand>-1 && p[3]!==state.brand) return false;
+    if(state.q){
+      const hay=(p[1]+" "+p[0]+" "+BRANDS[p[3]]).toLowerCase();
+      if(!hay.includes(state.q)) return false;
+    }
+    return true;
+  });
+}
+function card(p, idx, i){
+  const brand = BRANDS[p[3]] || "";
+  const noBrand = brand.includes("ไม่ระบุ");
+  const img = p[5] ? `<img loading="lazy" src="${esc(p[5])}" alt="" onerror="this.remove()">` : "";
+  return `<button class="card" style="animation-delay:${Math.min(i%BATCH,20)*18}ms" onclick="openM(${idx})" aria-label="${esc(p[1])}">
+    <div class="plate"><span class="emo">${emoOf(CATS[p[2]])}</span>${img}</div>
+    <div class="body">
+      <div class="code">${esc(p[0])}</div>
+      <div class="name">${esc(p[1])}</div>
+      <div class="meta">${noBrand?"":`<span class="pill brand">${esc(brand)}</span>`}<span class="pill">${esc(CATS[p[2]])}</span></div>
+    </div></button>`;
+}
+function render(){
+  const f = filtered();
+  const show = f.slice(0, state.shown);
+  document.getElementById("grid").innerHTML = show.map(([p,idx],i)=>card(p,idx,i)).join("");
+  document.getElementById("empty").style.display = (P.length && !f.length) ? "block" : "none";
+  document.getElementById("resultLine").innerHTML = P.length ? `พบ <b>${f.length.toLocaleString()}</b> รายการ · แสดง ${show.length.toLocaleString()}` : "";
+  const mb=document.getElementById("moreBtn");
+  mb.style.display = f.length>state.shown ? "" : "none";
+  mb.textContent = `แสดงเพิ่ม (เหลืออีก ${(f.length-state.shown).toLocaleString()} รายการ)`;
+}
+function showMore(){ state.shown+=BATCH; render(); }
+
+let lastFocus=null;
+function openM(idx){
+  const p=P[idx];
+  lastFocus=document.activeElement;
+  document.getElementById("mEmo").textContent = emoOf(CATS[p[2]]);
+  const im=document.getElementById("mImg");
+  if(p[5]){ im.style.display=""; im.src=p[5]; } else { im.style.display="none"; im.removeAttribute("src"); }
+  document.getElementById("mCode").textContent = "รหัสสินค้า "+p[0];
+  document.getElementById("mName").textContent = p[1];
+  document.getElementById("mCat").textContent = CATS[p[2]];
+  document.getElementById("mBrand").textContent = BRANDS[p[3]];
+  document.getElementById("mUnit").textContent = UNITS[p[4]]||"-";
+  const msg = encodeURIComponent(`สนใจสินค้า [${p[0]}] ${p[1]} ขอราคาตัวแทนครับ/ค่ะ`);
+  document.getElementById("mLine").onclick = ()=>window.open(`https://line.me/R/oaMessage/${LINE_OA_ID}/?${msg}`,"_blank");
+  document.getElementById("mTel").href = "tel:"+TEL;
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+  document.querySelector(".m-close").focus();
+}
+function closeModal(){
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow="";
+  if(lastFocus) lastFocus.focus();
+}
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+
+function lineDealer(){
+  const msg = encodeURIComponent("สนใจสมัครเป็นตัวแทนจำหน่าย ขอรายละเอียดและราคาส่งครับ/ค่ะ");
+  window.open(`https://line.me/R/oaMessage/${LINE_OA_ID}/?${msg}`,"_blank");
+}
+document.getElementById("lineTxt").textContent = LINE_OA_ID;
+const telA=document.getElementById("telA"); telA.textContent=TEL_SHOW; telA.href="tel:"+TEL;
+
+init();
+</script>
+</body>
+</html>
